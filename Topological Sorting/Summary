@@ -10,7 +10,7 @@
 全序(Total order)是偏序的一种特殊情况，即在偏序的基础上，任意两个顶点之间单向联通。
 
 以排序举例：
-	我们知道不同整数之间的大小关系是确定的，即1总是小于4的，不会有人说1大于或者等于4吧。这就是说，这个序列是满足全序关系的。而对于拥有全序关系的结构
+    我们知道不同整数之间的大小关系是确定的，即1总是小于4的，不会有人说1大于或者等于4吧。这就是说，这个序列是满足全序关系的。而对于拥有全序关系的结构
     (如拥有不同整数的数组)，在其线性化(排序)之后的结果必然是唯一的。对于排序的算法，我们评价指标之一是看该排序算法是否稳定，即值相同的元素的排序结果
     是否和出现的顺序一致。比如，我们说快速排序是不稳定的，这是因为最后的快排结果中相同元素的出现顺序和排序前不一致了。如果用偏序的概念可以这样解释这
     一现象：相同值的元素之间的关系是无法确定的。因此它们在最终的结果中的出现顺序可以是任意的。而对于诸如插入排序这种稳定性排序，它们对于值相同的元
@@ -51,10 +51,10 @@
                 add n to L
 	
 	1. LeetCode  207. Course Schedule: 判断是否为DAG
-                     210. Course Schedule II: 输出Topological sorting
-                     269. Alien Dictionary: 对相邻的两个字符串，找到第一个不相同的字母，构造邻接表和入度表，使用Kahn's算法输出Topological sorting
-                     444. Sequence Reconstruction: 建图并输出Topological sorting
+                    210. Course Schedule II: 输出Topological sorting
+                    269. Alien Dictionary: 对相邻的两个字符串，找到第一个不相同的字母，构造邻接表和入度表，使用Kahn's算法输出Topological sorting
+                    444. Sequence Reconstruction: 建图并输出Topological sorting
 	2. Codeforces  510C. Fox And Names: 和269一样，建图并输出Topological sorting
-                   875C. National Property: 与510C类似的方式建图并构造邻接表，u->v代表u>v，并标记需要修改的节点和不能修改的节点。从被修改的节点u开始
-		         DFS遍历，当访问到节点v时，若v不能被修改，则此时u<v与u->v矛盾，结束程序；若v被修改，继续遍历；若v无状态，修改v并从v开始DFS遍历。
-			 最后输出所有被修改的节点。
+                       875C. National Property: 与510C类似的方式建图并构造邻接表，u->v代表u>v，并标记需要修改的节点和不能修改的节点。从被修改的节点u开始
+		             DFS遍历，当访问到节点v时，若v不能被修改，则此时u<v与u->v矛盾，结束程序；若v被修改，继续遍历；若v无状态，修改v并从v开始DFS遍历。
+			     最后输出所有被修改的节点。
