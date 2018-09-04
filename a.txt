@@ -10,36 +10,41 @@
 	
 拓扑排序中，结果具有唯一性的条件也是其所有顶点之间都具有全序关系。并且，如果拓扑排序结果唯一，该结果同时也代表了一条哈密顿路径(Hamilton path)，即在图中沿边访问每个顶点恰好一次的路径。
 
-	1. Kahn算法(BFS)：维护一个入度为0的顶点的集合，对集合中的顶点u，循环遍历由该顶点u引出的所有边，从图中移除这条边，同时获取该边的另外一个顶点v，如果该顶点v的入度在减去本条边之后为0，那么也将这个顶点v放到入度为0的集合中。当集合为空时，检验图中是否还存在任何边，若存在，说明图中至少有一条环路。时间复杂度为O(E+V(构建入度为0的集合，遍历每个节点和边)+E+V(搜索子节点，遍历每个节点和边))=O(2E+2V)。
-	L← Empty list that will contain the sorted elements
-	S ← Set of all nodes with no incoming edges
-	while S is non-empty do
-	    remove a node n from S
-	    insert n into L
-	    foreach node m with an edge e from nto m do
-	        remove edge e from thegraph
-	        ifm has no other incoming edges then
-	            insert m into S
-	if graph has edges then
-	    return error (graph has at least onecycle)
-	else 
-	    return L (a topologically sorted order)
+	1. Kahn算法(BFS)：维护一个入度为0的顶点的集合，对集合中的顶点u，循环遍历由该顶点u引出的所有边，从图中移除这条边，同时获取该边的另外一个顶点v，如
+       果该顶点v的入度在减去本条边之后为0，那么也将这个顶点v放到入度为0的集合中。当集合为空时，检验图中是否还存在任何边，若存在，说明图中至少有一条
+       环路。时间复杂度为O(E+V(构建入度为0的集合，遍历每个节点和边)+E+V(搜索子节点，遍历每个节点和边))=O(2E+2V)。
+        L← Empty list that will contain the sorted elements
+        S ← Set of all nodes with no incoming edges
+        while S is non-empty do
+            remove a node n from S
+            insert n into L
+            foreach node m with an edge e from nto m do
+                remove edge e from thegraph
+                ifm has no other incoming edges then
+                    insert m into S
+        if graph has edges then
+            return error (graph has at least onecycle)
+        else 
+            return L (a topologically sorted order)
 	
-	2. DFS: 构建一个邻接表(adjacency list)，由某个顶点开始遍历，到底后加入拓扑排序集合，然后依次将之前访问的节点加在之前(即将顶点插在首位)，即当顶点出度为0时加入结果集合。时间复杂度为O(V+E)。
-	L ← Empty list that will contain the sorted nodes
-	S ← Set of all nodes with no outgoing edges
-	for each node n in S do
-	    visit(n) 
-	function visit(node n)
-	    if n has not been visited yet then
-	        mark n as visited
-	        for each node m with an edgefrom m to ndo
-	            visit(m)
-	        add n to L
+	2. DFS: 构建一个邻接表(adjacency list)，由某个顶点开始遍历，到底后加入拓扑排序集合，然后依次将之前访问的节点加在之前(即将顶点插在首位)，即当顶
+       点出度为0时加入结果集合。时间复杂度为O(V+E)。
+        L ← Empty list that will contain the sorted nodes
+        S ← Set of all nodes with no outgoing edges
+        for each node n in S do
+            visit(n) 
+        function visit(node n)
+            if n has not been visited yet then
+                mark n as visited
+                for each node m with an edge from m to n do
+                    visit(m)
+                add n to L
 	
 	1. LeetCode  207. Course Schedule: 判断是否为DAG
-               210. Course Schedule II: 输出Topological sorting
-               269. Alien Dictionary: 对相邻的两个字符串，找到第一个不相同的字母，构造邻接表和入度表，使用Kahn's算法输出Topological sorting
-               444. Sequence Reconstruction: 建图并输出Topological sorting
+                 210. Course Schedule II: 输出Topological sorting
+                 269. Alien Dictionary: 对相邻的两个字符串，找到第一个不相同的字母，构造邻接表和入度表，使用Kahn's算法输出Topological sorting
+                 444. Sequence Reconstruction: 建图并输出Topological sorting
 	2. Codeforces  510C. Fox And Names: 和269一样，建图并输出Topological sorting
-                 875C. National Property: 与510C类似的方式建图并构造邻接表，u->v代表u>v，并标记需要修改的节点和不能修改的节点。从被修改的节点u开始DFS遍历，当访问到节点v时，若v不能被修改，则此时u<v与u->v矛盾，结束程序；若v被修改，继续遍历；若v无状态，修改v并从v开始DFS遍历。最后输出所有被修改的节点。
+                   875C. National Property: 与510C类似的方式建图并构造邻接表，u->v代表u>v，并标记需要修改的节点和不能修改的节点。从被修改的节点u 
+                   开始DFS遍历，当访问到节点v时，若v不能被修改，则此时u<v与u->v矛盾，结束程序；若v被修改，继续遍历；若v无状态，修改v并从v开始DFS遍
+                   历。最后输出所有被修改的节点。
