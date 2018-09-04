@@ -50,11 +50,11 @@
                     visit(m)
                 add n to L
 	
-	1. LeetCode  207. Course Schedule: 判断是否为DAG
-                    210. Course Schedule II: 输出Topological sorting
-                    269. Alien Dictionary: 对相邻的两个字符串，找到第一个不相同的字母，构造邻接表和入度表，使用Kahn's算法输出Topological sorting
-                    444. Sequence Reconstruction: 建图并输出Topological sorting
-	2. Codeforces  510C. Fox And Names: 和269一样，建图并输出Topological sorting
-                      875C. National Property: 与510C类似的方式建图并构造邻接表，u->v代表u>v，并标记需要修改的节点和不能修改的节点。从被修改的节点u开始
-		             DFS遍历，当访问到节点v时，若v不能被修改，则此时u<v与u->v矛盾，结束程序；若v被修改，继续遍历；若v无状态，修改v并从v开始DFS遍历。
-			     最后输出所有被修改的节点。
+1. LeetCode  207. Course Schedule: 判断是否为DAG
+	    210. Course Schedule II: 输出Topological sorting
+	    269. Alien Dictionary: 对相邻的两个字符串，找到第一个不相同的字母，构造邻接表和入度表，使用Kahn's算法输出Topological sorting
+	    444. Sequence Reconstruction: 建图并输出Topological sorting
+2. Codeforces  510C. Fox And Names: 和269一样，建图并输出Topological sorting
+	      875C. National Property: 与510C类似的方式建图并构造邻接表，u->v代表u>v，并标记需要修改的节点和不能修改的节点。从被修改的节点u开始
+		     DFS遍历，当访问到节点v时，若v不能被修改，则此时u<v与u->v矛盾，结束程序；若v被修改，继续遍历；若v无状态，修改v并从v开始DFS遍历。
+		     最后输出所有被修改的节点。
