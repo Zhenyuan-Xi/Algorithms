@@ -12,6 +12,7 @@ Input:
   "rftt"
 ]
 Output: "wertf"
+
 Input:
 [
   "z",
