@@ -1,3 +1,17 @@
+/*
+Starting with an undirected graph (the "original graph") with nodes from 0 to N-1, subdivisions are made to some of the edges.
+The graph is given as follows: edges[k] is a list of integer pairs (i, j, n) such that (i, j) is an edge of the original graph,
+and n is the total number of new nodes on that edge. 
+Then, the edge (i, j) is deleted from the original graph, n new nodes (x_1, x_2, ..., x_n) are added to the original graph,
+and n+1 new edges (i, x_1), (x_1, x_2), (x_2, x_3), ..., (x_{n-1}, x_n), (x_n, j) are added to the original graph.
+Now, you start at node 0 from the original graph, and in each move, you travel along one edge. 
+Return how many nodes you can reach in at most M moves.
+
+Input: edges = [[0,1,10],[0,2,1],[1,2,2]], M = 6, N = 3
+Output: 13
+Input: edges = [[0,1,4],[1,2,6],[0,2,8],[1,3,1]], M = 10, N = 4
+Output: 23
+*/
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -33,7 +47,7 @@ public:
             adj[edge[1]][edge[0]]=edge[2];
         }
         auto compare=[](const PII& a,const PII& b){return a.second<b.second;};
-        priority_queue<PII,vector<PII>,decltype(compare)> pq(compare);
+        priority_queue<PII,vector<PII>,decltype(compare)> pq(compare); //剩余步数类似于权值,从剩余步数最多的节点开始
         pq.push(MP(0,M));
         while(!pq.empty()){
             PII cur=pq.top();pq.pop();
@@ -43,8 +57,8 @@ public:
             res++;
             REP(v,0,N){
                 if(adj[u][v]==-1) continue;
-                if(w>adj[u][v]&&!vis[v]) pq.push(MP(v,w-adj[u][v]-1));
-                adj[v][u]-=min(w,adj[u][v]);
+                if(w>adj[u][v]&&!vis[v]) pq.push(MP(v,w-adj[u][v]-1)); //该节点有剩余步数
+                adj[v][u]-=min(w,adj[u][v]); //更新当前路径上的node数量
                 res+=min(w,adj[u][v]);
             }
         }
