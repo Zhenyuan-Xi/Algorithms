@@ -57,11 +57,9 @@ int prim(int n){
     REP(i,1,n+1){
         mmin=INF;
         REP(j,1,n+1){
-            if(!vis[j]){
-                if(mmin>dist[j]){ //找到当前顶点最近的未访问过的顶点
-                    mmin=dist[j];
-                    u=j;
-                }
+            if(!vis[j]&&mmin>dist[j]){ //找到当前顶点最近的未访问过的顶点
+                mmin=dist[j];
+                u=j;
             }
         }
         if(mmin==INF) return res; //所有点都访问过则返回
