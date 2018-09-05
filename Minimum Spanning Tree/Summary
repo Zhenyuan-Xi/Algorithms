@@ -22,7 +22,7 @@
    如此继续下去，直到网络中的所有顶点都加入到生成树顶点集合U中为止。
    时间复杂度为O(V^2),适合稠密图即边较多,使用二叉堆和邻接表优化可降低为O(ElogV)。
   
-1. HDU  1102. Constructing Roads
-        1233. Still Smooth Traffic(还是畅通工程)
+1. HDU  1102. Constructing Roads: Prim算法模板,注意将已连通的边的权值设为0
+        1233. Still Smooth Traffic(还是畅通工程): Prim/Kruskal算法模板
         4408. The Number of Minimum Spanning Tree
 2. POJ  1679. The Unique MST(次小生成树)
