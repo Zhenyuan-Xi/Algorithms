@@ -23,6 +23,6 @@
    时间复杂度为O(V^2),适合稠密图即边较多,使用二叉堆和邻接表优化可降低为O(ElogV)。
   
 1. HDU  1102. Constructing Roads
-        1233. 还是畅通工程
+        1233. Still Smooth Traffic(还是畅通工程)
         4408. The Number of Minimum Spanning Tree
 2. POJ  1679. The Unique MST(次小生成树)
