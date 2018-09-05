@@ -64,7 +64,7 @@ int prim(int n){
                 }
             }
         }
-        if(mmin==INF) return res; //所有点都访问过或有顶点未连通
+        if(mmin==INF) return res; //所有点都访问过则返回
         vis[u]=1;
         res+=mmin; //累积权值
         REP(j,1,n+1){
