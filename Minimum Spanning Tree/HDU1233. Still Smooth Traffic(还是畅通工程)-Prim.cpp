@@ -60,7 +60,7 @@ int prim(int n){
     REP(i,1,n+1){
         mmin=INF;
         REP(j,1,n+1){
-            if(!vis[j]&&mmin>dist[j]){
+            if(!vis[j]&&mmin>dist[j]){ //取与当前节点最近的节点
                 mmin=dist[j];
                 u=j;
             }
