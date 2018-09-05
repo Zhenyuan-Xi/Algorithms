@@ -64,14 +64,14 @@ int mat[N][N];
 
 struct point{
     int x,y;
-}p[N];
+}p[N]; //构造点
 
-int det(int n){
+int det(int n){ //求n阶矩阵的行列式的值
     int res=1;
     REP(i,0,n) REP(j,0,n) mat[i][j]%=M;
     REP(i,0,n){
         REP(j,i+1,n){
-            while(mat[j][i]){
+            while(mat[j][i]){ //初等变换转化为上三角矩阵
                 int temp=mat[i][i]/mat[j][i];
                 REP(k,i,n) mat[i][k]=(mat[i][k]-mat[j][k]*temp)%M;
                 swap(mat[i],mat[j]);
@@ -79,12 +79,12 @@ int det(int n){
             }
         }
         if(mat[i][i]==0) return 0;
-        res=res*mat[i][i]%M;
+        res=res*mat[i][i]%M; //累积主对角线的值
     }
     return (res+M)%M;
 }
 
-bool same(point i,point k,point j){
+bool same(point i,point k,point j){ //判断ijk三点共线,且k点在ij两点之间
     return (i.x-j.x)*(k.y-j.y)==(k.x-j.x)*(i.y-j.y)
     &&min(i.x,j.x)<=k.x&&max(i.x,j.x)>=k.x
     &&min(i.y,j.y)<=k.y&&max(i.y,j.y)>=k.y;
@@ -99,14 +99,14 @@ int main(){
         REP(i,0,n) scanf("%d%d",&p[i].x,&p[i].y);
         REP(i,0,n){
             REP(j,i+1,n){
-                if(sqrt(pow((p[i].x-p[j].x),2)+pow((p[i].y-p[j].y),2))<=r){
+                if(sqrt(pow((p[i].x-p[j].x),2)+pow((p[i].y-p[j].y),2))<=r){ //判断距离是否合格
                     bool valid=true;
                     REP(k,0,n){
-                        if(k!=i&&k!=j&&same(p[i],p[k],p[j])) valid=false;
+                        if(k!=i&&k!=j&&same(p[i],p[k],p[j])) valid=false; //检查三点共线
                     }
                     if(valid){
-                        mat[i][j]=mat[j][i]=-1;
-                        mat[i][i]++;
+                        mat[i][j]=mat[j][i]=-1; //Kirchhoff矩阵=度数矩阵-邻接矩阵,即邻接矩阵添加负号
+                        mat[i][i]++; //连通两点,度数矩阵加1
                         mat[j][j]++;
                     }
                 }
