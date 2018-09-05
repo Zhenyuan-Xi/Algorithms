@@ -26,7 +26,7 @@ Input
 1 2
 Output
 179
-/*
+*/
 
 #include <bits/stdc++.h>
 using namespace std;
