@@ -24,5 +24,9 @@
   
 1. HDU  1102. Constructing Roads: Prim算法模板,注意将已连通的边的权值设为0
         1233. Still Smooth Traffic(还是畅通工程): Prim/Kruskal算法模板
+        4305. Lightning(生成树计数): 使用Matrix-Tree定理,即Kirchhoff矩阵任意n-1阶子矩阵的行列式的绝对值就是无向图的生成树的数量。
+              Kirchhoff矩阵的定义是度数矩阵-邻接矩阵,G的度数矩阵D[G]:n*n的矩阵,D(i,i)等于Vi的度数,其余为0;G的邻接矩阵A[G]:n*n的矩阵,
+              Vi与Vj之间有边直接相连,则A(i,j)=1,否则为0。
+              构造Kirchhoff矩阵并用叉积判断是否ijk三点共线且k位于ij之间,然后计算行列式的值,即通过初等变换转化为上三角的行列式,主对角线的积就是行列式的值。
         4408. The Number of Minimum Spanning Tree
 2. POJ  1679. The Unique MST(次小生成树)
