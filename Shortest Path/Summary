@@ -103,5 +103,5 @@
    re-weight:在图中新增源顶点,其与其他各边的边权为0,使用Bellman-Ford计算新增节点到其他节点的最短路径h[],则w'(u,v)=w(u,v)+(h[u]-h[v])。
    时间复杂度为O(V(V+E)logV(对每个点使用Dijkstra)+VE(Bellman-Ford))=O(V^2logV+VElogV),在稀疏图中E较少,优于Floyd-Warshall。
 
-1. LeetCode  743. Network Delay Time: 求全源最短路径,取其中最大值
-             882. Reachable Nodes In Subdivided Graph: Dijkstra,以剩余步数作为权值
+1. LeetCode  743. Network Delay Time: 有向正权图,对每个点使用Dijkstra求全源最短路径,取其中最大值
+             882. Reachable Nodes In Subdivided Graph: 无向正权图,用Dijkstra,以剩余步数作为权值
