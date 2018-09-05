@@ -1,3 +1,6 @@
+求最短路径问题五种算法: 单源:Dijkstra,Bellman-Ford,SPFA。
+                      多源:Floyd-Warshall,Johnson。
+
 1. Dijkstra: 求单源(即给定起点终点)、无负权的最短路,思路为从当前节点找未标记的最近的节点,标记并松弛它的边。时间复杂度为O(V^2+E)。
    function Dijkstra(Graph, source):
       create vertex set Q
@@ -78,7 +81,7 @@
                    if v is not in Q then
                        offer v into Q
                        
-4. Floyd-Warshall: 求多源、无负边权的最短路,使用邻接矩阵存储图,思想为用动态规划考虑最短子路径来得到最短路径,分为两步(初始化和松弛)。
+4. Floyd-Warshall: 求多源、可以有负边权的最短路,使用邻接矩阵存储图,思想为用动态规划考虑最短子路径来得到最短路径,分为两步(初始化和松弛)。
    初始化为从任意一条单边路径开始,所有两点之间的距离是边的权,或者如果两点之间没有边相连则为无穷大。
    松弛为对于每一对顶点(u,v),看看是否存在一个顶点w使得u->w->v的距离比己知的u->v的路径更短,如果存在则更新最短路径。
    动态规划过程: w(i,j)是节点i,j之间的边权,dp(i,j,k)为i->j的最短路径并以{1,2,...,k}节点为中间点,base case为dp(i,j,0)=w(i,j),
@@ -95,3 +98,7 @@
             if dist[i][j] > dist[i][k] + dist[k][j] 
               dist[i][j] ← dist[i][k] + dist[k][j]
           end if
+
+5. Johnson: 求多源、可以有负边权的最短路,思路基于使用Dijkstra对全图节点遍历,通过re-weight对边权重新赋权。
+   re-weight:在图中新增源顶点,其与其他各边的边权为0,使用Bellman-Ford计算新增节点到其他节点的最短路径h[],则w'(u,v)=w(u,v)+(h[u]-h[v])。
+   时间复杂度为O(V(V+E)logV(对每个点使用Dijkstra)+VE(Bellman-Ford))=O(V^2logV+VElogV),在稀疏图中E较少,优于Floyd-Warshall。
