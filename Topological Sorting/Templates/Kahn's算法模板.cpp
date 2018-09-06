@@ -17,10 +17,11 @@ const int dx[]={-1,0,1,0},dy[]={0,-1,0,1}; //i=3-i
 /*----------------------------------------------*/
 const int N=1000;
 vector<PII> edges(N); //存放边,PII=(u,v)
+VI res;
 
 int main(){
-    int n;scanf("%d",&n); //输入节点数量
-    REP(i,0,n){
+    int n,m;scanf("%d%d",&n,&m); //输入节点和边的数量
+    REP(i,0,m){
         int u,v;
         scanf("%d%d",&u,&v);
         edges.push_back(MP(u,v)); //输入边
@@ -37,20 +38,35 @@ int main(){
     }
     queue<int> q; //以队列存储节点进行遍历
     int cnt=0; //记录入度为0的节点的数量
-    for(unordered_map<char,int>::iterator it=indegree.begin();it!=indegree.end();it++){
+    for(unordered_map<int,int>::iterator it=indegree.begin();it!=indegree.end();it++){
         if(it->second==0) q.push(it->first); //将初始入度为0的节点存进队列
     }
     while(!q.empty()){
         int size=q.size();
         REP(i,0,size){
-            int u=q.front(),q.pop();
+            int u=q.front();q.pop();
             cnt++;
+            res.push_back(u);
             for(int v:adj[u]){ //检查u可到达的每个v节点
                 indegree[v]--; //降低v节点入度,即移除边u->v
                 if(indegree[v]==0) q.push(v); //若v节点入度为0,存进队列
             }
         }
     }
-    if(cnt!=n) cout<<"Not Valid"; //检查是否存在环,若有多余的边,则存在环
-    cout<<"Valid";
+    if(cnt!=n) cout<<-1; //检查是否存在环,若有多余的边,则存在环
+    else{
+        REP(i,0,res.size()) cout<<res[i]<<" ";
+    }
 }
+
+/*
+测试用例
+Input
+5 4
+2 4
+1 2
+3 5
+4 3
+Output
+1 2 4 3 5
+*/
