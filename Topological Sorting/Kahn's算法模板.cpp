@@ -29,6 +29,7 @@ int main(){
     unordered_map<int,int> indegree; //入度表,u->0,v->1,w->1
     REP(i,0,edges.size()){ //初始化邻接表和入度表
         int u=edges[i].first,v=edges[i].second; //提取u,v节点
+        if(indegree.find(u)==indegree.end()) indegree[u]=0; //初始化根节点入度为0
         if(adj[u].find(v)==adj[u].end()){ //检查是否以存放
             adj[u].insert(v); //存放进邻接表
             indegree[v]++; //增加v节点入度
