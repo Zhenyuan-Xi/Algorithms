@@ -22,13 +22,18 @@ struct node{ //结构Node,存放index以及到该节点的边权
     int idx,w;
     node(){}
     node(int _idx,int _w){idx=_idx;w=_w;}
-    bool operator < (const node& node) const{ //重写操作符,边权最小的节点在队头
-        if(w==node.w) return idx<node.idx;
-        else return w>node.w;
-    }
+//     bool operator < (const node& node) const{ //重写操作符,边权最小的节点在队头
+//         if(w==node.w) return idx<node.idx;
+//         else return w>node.w;
+//     }
 };
 vector<node> adj[N]; //结构Node邻接表,adj[u]=node(v,w)为u->v=w
-priority_queue<node> pq; //使用优先队列进行堆优化
+//priority_queue<node> pq; //使用优先队列进行堆优化
+auto compare=[](const node& a,const node& b){ //重写comparator,边权最小的节点在队头
+    if(a.w==b.w) return a.idx<b.idx;
+    else return a.w>b.w;
+};
+priority_queue<node,vector<node>,decltype(compare)> pq(compare);
 
 void dijkstra(){
     dist[1]=0; //初始化起点最短距离
