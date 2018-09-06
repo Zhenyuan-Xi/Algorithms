@@ -16,28 +16,28 @@ const int INF=0x3f3f3f3f;
 const int dx[]={-1,0,1,0},dy[]={0,-1,0,1}; //i=3-i
 /*----------------------------------------------*/
 const int N=1000;
-int mat[N][N];
-int vis[N];
-int dist[N];
+int mat[N][N]; //存放边
+int vis[N]; //记录访问过的节点
+int dist[N]; //记录各节点与当前节点的距离
 
 int prim(int n){
-    int u=1,res=0;
-    vis[u]=1;
-    REP(i,1,n+1) dist[i]=mat[u][i];
+    int u=1,res=0; //从节点1开始
+    vis[u]=1; //标记访问
+    REP(i,1,n+1) dist[i]=mat[u][i]; //初始化各节点与u的距离
     int mmin;
     REP(i,1,n+1){
         mmin=INF;
         REP(j,1,n+1){
-            if(!vis[j]&&mmin>dist[j]){
-                mmin=dist[j];
-                u=j;
+            if(!vis[j]&&mmin>dist[j]){ //找出与当前节点距离最短的未访问过的节点作为下一个节点
+                mmin=dist[j]; //更新最短距离
+                u=j; //更新当前节点
             }
         }
-        if(mmin==INF) return res;
-        vis[u]=1;
-        res+=mmin;
+        if(mmin==INF) return res; //节点都已经访问过,返回
+        vis[u]=1; //标记访问
+        res+=mmin; //累计权值
         REP(j,1,n+1){
-            if(!vis[j]&&dist[j]>mat[u][j]) dist[j]=mat[u][j];
+            if(!vis[j]&&dist[j]>mat[u][j]) dist[j]=mat[u][j]; //更新未访问过的各节点与当前节点的距离
         }
     }
 }
@@ -47,7 +47,7 @@ int main(){
     cin>>n>>m;
     while(m--){
         scanf("%d%d%d",&u,&v,&w);
-        mat[u][v]=mat[v][u]=w;
+        mat[u][v]=mat[v][u]=w; //输入边及权值
     }
     int res=prim(n);
     cout<<res;
