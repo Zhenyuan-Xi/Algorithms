@@ -20,7 +20,8 @@
                   prev[v] ← u 
       return dist[], prev[]
   
-   使用堆优化(优先队列),即队头出队,松弛它的边,再将松弛后的<新距离,节点>入队。时间复杂度为O((V+E)logV)。
+   使用堆优化(优先队列),即队头出队,松弛它的边,再将松弛后的<新距离,节点>入队。时间复杂度为O((V+E)logV)。有向图中使用邻接表为O(ElogV)。
+   使用Fibonacci堆优化降低时间复杂度为O(E+VlogV)。
    function Dijkstra(Graph, source):
       dist[source] ← 0                          // Initialization
       create vertex set Q
@@ -105,6 +106,9 @@
 
 1. LeetCode  743. Network Delay Time: 有向正权图,对每个点使用Dijkstra求全源最短路径,取其中最大值
              882. Reachable Nodes In Subdivided Graph: 无向正权图,用Dijkstra,以剩余步数作为权值
-             
+             787. Cheapest Flights Within K stops: 有向正权图,最短路径上最多有K个点,使用Bellman-Ford并记录每次循环的dist数组以确保
+                  每个点在一次循环中至多更新一次,时间复杂度O(KE);使用Dijkstra需要给每个节点增加一个路径上节点数量的信息,使用优先队列
+                  每次提取距离最短的节点,注意在松弛它的边的时,若节点距离未更新但节点数量更少,也需要将其入队,即在Dijkstra基础上增加了
+                  更多的节点,时间复杂度为O(ElogV+xlogx(更多的可能节点))
 2. Codeforces  20C. Dijkstra?: Dijkstra模板题  
                601A. The Two Routes:  若存在1->n,则火车可花1小时;若不存在,则汽车花1小时。则只需要求另一个的最短路径即可            
