@@ -37,8 +37,8 @@ int main(){
     }
     queue<int> q; //以队列存储节点进行遍历
     int cnt=0; //记录入度为0的节点的数量
-    REP(i,0,n){
-        if(indegree[i]==0) q.push(i); //将初始入度为0的节点存进队列
+    for(unordered_map<char,int>::iterator it=indegree.begin();it!=indegree.end();it++){
+        if(it->second==0) q.push(it->first); //将初始入度为0的节点存进队列
     }
     while(!q.empty()){
         int size=q.size();
