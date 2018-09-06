@@ -25,3 +25,69 @@ Input
 Output
 10
 */
+
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+typedef vector<int> VI;
+typedef vector<vector<int> > VII;
+typedef vector<char> VC;
+typedef vector<string> VS;
+typedef pair<int,int> PII;
+#define REP(i,s,t) for(int i=(s);i<(t);i++)
+#define RREP(i,s,t) for(int i=(s);i>=(t);i--)
+#define ALL(x) (x).begin(),(x).end()
+#define FILL(x,v) memset(x,v,sizeof(x))
+#define LEN(x) sizeof(x)/sizeof(x[0])
+#define MP(x,y) make_pair(x,y)
+const int INF=0x3f3f3f3f;
+const int dx[]={-1,0,1,0},dy[]={0,-1,0,1}; //i=3-i
+/*----------------------------------------------*/
+const int N=1005;
+int mat[N][N];
+int dist[N];
+int res1[N],res2[N];
+int vis[N];
+int n;
+
+void dijkstra(int u){
+    dist[u]=0;
+    REP(i,1,n+1){
+        int mmin=INF,v=0;
+        REP(j,1,n+1){
+            if(!vis[j]&&dist[j]<mmin){
+                mmin=dist[j];
+                v=j;
+            }
+        }
+        vis[v]=1;
+        REP(j,1,n+1){
+            if(!vis[j]&&dist[j]>dist[v]+mat[v][j]){
+                dist[j]=dist[v]+mat[v][j];
+            }
+        }
+    }
+}
+
+int main(){
+    int m,x;
+    cin>>n>>m>>x;
+    FILL(vis,0);
+    FILL(dist,0x3f);
+    FILL(mat,0x3f);
+    while(m--){
+        int u,v,w;
+        scanf("%d%d%d",&u,&v,&w);
+        mat[u][v]=w;
+    }
+    dijkstra(x);
+    REP(i,1,n+1) res1[i]=dist[i];
+    FILL(vis,0);
+    FILL(dist,0x3f);
+    REP(i,1,n+1) REP(j,i+1,n+1) swap(mat[i][j],mat[j][i]);
+    dijkstra(x);
+    REP(i,1,n+1) res2[i]=dist[i];
+    int res=0;
+    REP(i,1,n+1) res=max(res,res1[i]+res2[i]);
+    cout<<res;
+}
