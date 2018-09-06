@@ -50,7 +50,7 @@ int res1[N],res2[N];
 int vis[N];
 int n;
 
-void dijkstra(int u){
+void dijkstra(int u){ //未经堆优化的Dijkstra模板
     dist[u]=0;
     REP(i,1,n+1){
         int mmin=INF,v=0;
@@ -84,7 +84,7 @@ int main(){
     REP(i,1,n+1) res1[i]=dist[i];
     FILL(vis,0);
     FILL(dist,0x3f);
-    REP(i,1,n+1) REP(j,i+1,n+1) swap(mat[i][j],mat[j][i]);
+    REP(i,1,n+1) REP(j,i+1,n+1) swap(mat[i][j],mat[j][i]); //转置矩阵,即u->v变为v->u,实现以各节点为起点,x为终点
     dijkstra(x);
     REP(i,1,n+1) res2[i]=dist[i];
     int res=0;
