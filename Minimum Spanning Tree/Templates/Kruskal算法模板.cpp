@@ -36,8 +36,7 @@ void uni(int u,int v){
 
 int main(){
     int n,m,u,v,w;
-    cin>>n;
-    m=n*(n-1)/2;
+    cin>>n>>m;
     REP(i,1,n+1) id[i]=i;
     FILL(size,1);
     REP(i,1,m+1) scanf("%d%d%d",&edges[i].u,&edges[i].v,&edges[i].w); //初始化所有边
@@ -51,3 +50,17 @@ int main(){
     }
     cout<<res;
 }
+
+/*
+测试用例
+Input
+4 6
+1 2 1
+1 3 4
+1 4 1
+2 3 3
+2 4 2
+3 4 5
+Output 
+5
+*/
