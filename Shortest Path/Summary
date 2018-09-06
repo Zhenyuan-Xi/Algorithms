@@ -105,3 +105,6 @@
 
 1. LeetCode  743. Network Delay Time: 有向正权图,对每个点使用Dijkstra求全源最短路径,取其中最大值
              882. Reachable Nodes In Subdivided Graph: 无向正权图,用Dijkstra,以剩余步数作为权值
+             
+2. Codeforces  20C. Dijkstra?: Dijkstra模板题  
+               601A. The Two Routes:  若存在1->n,则火车可花1小时;若不存在,则汽车花1小时。则只需要求另一个的最短路径即可            
