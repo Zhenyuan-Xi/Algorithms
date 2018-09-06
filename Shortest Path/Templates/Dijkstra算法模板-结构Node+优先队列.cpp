@@ -16,36 +16,36 @@ const int INF=0x3f3f3f3f;
 const int dx[]={-1,0,1,0},dy[]={0,-1,0,1}; //i=3-i
 /*----------------------------------------------*/
 const int N=1000;
-int pre[N];
-int dist[N];
-struct node{
+int pre[N]; //存放最短路径
+int dist[N]; //存放各点到起点的最短距离
+struct node{ //结构Node,存放index以及到该节点的边权
     int idx,w;
     node(){}
     node(int _idx,int _w){idx=_idx;w=_w;}
-    bool operator < (const node& node) const{
+    bool operator < (const node& node) const{ //重写操作符,边权最小的节点在队头
         if(w==node.w) return idx<node.idx;
         else return w>node.w;
     }
 };
-vector<node> adj[N];
-priority_queue<node> pq;
+vector<node> adj[N]; //结构Node邻接表,adj[u]=node(v,w)为u->v=w
+priority_queue<node> pq; //使用优先队列进行堆优化
 
 void dijkstra(){
-    dist[1]=0;
-    pq.push(node(1,0));
+    dist[1]=0; //初始化起点最短距离
+    pq.push(node(1,0)); //起点入队
     while(!pq.empty()){
-        node u=pq.top();pq.pop();
-        for(node v:adj[u.idx]){
-            if(dist[v.idx]>dist[u.idx]+v.w){
-                dist[v.idx]=dist[u.idx]+v.w;
-                pre[v.idx]=u.idx;
-                pq.push(node(v.idx,dist[v.idx]));
+        node u=pq.top();pq.pop(); //提取队头,即到当前节点距离最短的节点
+        for(node v:adj[u.idx]){ //松弛此边
+            if(dist[v.idx]>dist[u.idx]+v.w){ //找到到节点v的更短路径
+                dist[v.idx]=dist[u.idx]+v.w; //更新到节点v的最短距离
+                pre[v.idx]=u.idx; //更新节点v的前驱节点
+                pq.push(node(v.idx,dist[v.idx])); //新节点v入队
             }
         }
     }
 }
 
-void print(int u){
+void print(int u){ //打印最短路径
     if(pre[u]!=-1) print(pre[u]);
     printf("%d ",u);
 }
@@ -55,7 +55,7 @@ int main(){
     while(m--){
         int u,v,w;
         scanf("%d%d%d",&u,&v,&w);
-        adj[u].push_back(node(v,w));
+        adj[u].push_back(node(v,w)); //初始化邻接表
         adj[v].push_back(node(u,w));
     }
     FILL(pre,-1);
