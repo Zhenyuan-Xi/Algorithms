@@ -1,3 +1,19 @@
+/*
+There are n cities connected by m flights. Each fight starts from city u and arrives at v with a price w.
+Now given all the cities and fights, together with starting city src and the destination dst, 
+your task is to find the cheapest price from src to dst with up to k stops. If there is no such route, output -1.
+
+Input: 
+n = 3, edges = [[0,1,100],[1,2,100],[0,2,500]]
+src = 0, dst = 2, k = 1
+Output: 200
+
+Input: 
+n = 3, edges = [[0,1,100],[1,2,100],[0,2,500]]
+src = 0, dst = 2, k = 0
+Output: 500
+*/
+
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
@@ -23,10 +39,10 @@ public:
         VI prev;
         dist[src]=0;
         REP(i,0,K+1){
-            prev=dist;
+            prev=dist; //拷贝当前dist数组,每次循环每个节点至多更新一次
             for(VI edge:flights){
                 int u=edge[0],v=edge[1],w=edge[2];
-                dist[v]=min(dist[v],prev[u]+w);
+                dist[v]=min(dist[v],prev[u]+w); //top-down动态规划思想,确保节点v的更新不受节点u的更新影响
             }
         }
         return dist[dst]==INF?-1:dist[dst];
