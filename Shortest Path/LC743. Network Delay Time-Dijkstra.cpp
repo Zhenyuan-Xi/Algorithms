@@ -41,6 +41,8 @@ public:
             VI edge=times[i];
             adj[edge[0]].push_back(MP(edge[1],edge[2]));
         }
+        //auto compare=[](const PII&a,const PII& b){return a.second>b.second;};
+        //priority_queue<PII,vector<PII>,delctype(compare)> pq(compare);
         priority_queue<PII,vector<PII>,compare> pq;
         pq.push(MP(K,0));
         unordered_map<int,int> dist;
