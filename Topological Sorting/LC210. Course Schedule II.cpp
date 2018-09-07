@@ -29,8 +29,9 @@ typedef pair<int,int> PII;
 #define FILL(x,v) memset(x,v,sizeof(x))
 #define LEN(x) sizeof(x)/sizeof(x[0])
 #define MP(x,y) make_pair(x,y)
+const int INF=0x3f3f3f3f;
 const int dx[]={-1,0,1,0},dy[]={0,-1,0,1}; //i=3-i
-//------------------------------------------------
+/*----------------------------------------------*/
 
 class Solution {
 public:
