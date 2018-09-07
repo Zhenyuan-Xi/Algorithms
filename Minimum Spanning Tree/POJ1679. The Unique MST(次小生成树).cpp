@@ -7,6 +7,7 @@ A spanning tree of G is a subgraph of G, say T = (V', E'), with the following pr
 Definition 2 (Minimum Spanning Tree): Consider an edge-weighted, connected, undirected graph G = (V, E). 
 The minimum spanning tree T = (V, E') of G is the spanning tree that has the smallest total cost. 
 The total cost of T means the sum of the weights on all the edges in E'. 
+即求次小生成树,并比较两棵生成树是否相同
 
 Input
 The first line contains a single integer t (1 <= t <= 20), the number of test cases. Each case represents a graph. 
