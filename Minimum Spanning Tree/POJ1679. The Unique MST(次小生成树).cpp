@@ -50,24 +50,27 @@ typedef pair<int,int> PII;
 const int INF=0x3f3f3f3f;
 const int dx[]={-1,0,1,0},dy[]={0,-1,0,1}; //i=3-i
 /*----------------------------------------------*/
-const int N=105;
+const int N=110;
 int mat[N][N];
 int vis[N];
 int dist[N];
-int pre[N];
-int res;
-int mmax[N][N];
-int used[N][N];
+int pre[N]; //记录前驱节点
+int res; //记录最小生成树权值和
+int mmax[N][N]; //记录从节点u到节点v的最大边权
+int used[N][N]; //记录边u->v是否在最小生成树中
 
 int prim(int n){
     int u=1,res=0;
     FILL(vis,0);
     FILL(mmax,0);
     FILL(used,0);
-    FILL(pre,0);
     vis[u]=1;
-    pre[1]=1;
-    REP(i,1,n+1) dist[i]=mat[u][i];
+    dist[u]=0;
+    pre[u]=0;
+    REP(i,2,n+1){
+        dist[i]=mat[u][i];
+        pre[i]=1;
+    }
     int mmin=INF;
     REP(i,1,n+1){
         mmin=INF;
@@ -77,22 +80,22 @@ int prim(int n){
                 u=j;
             }
         }
-        if(mmin==INF) return -1;
+        if(mmin==INF) return res;
         vis[u]=1;
         res+=mmin;
-        used[u][pre[u]]=used[pre[u]][u]=1;
+        used[u][pre[u]]=used[pre[u]][u]=1; //设置当前边在最小生成树中
         REP(j,1,n+1){
-            if(vis[j]) mmax[u][j]=mmax[j][u]=max(mmax[j][pre[u]],dist[u]);
+            if(vis[j]) mmax[u][j]=mmax[j][u]=max(mmax[j][pre[u]],dist[u]); //更新u->j的最大边权
             if(!vis[j]&&dist[j]>mat[u][j]){
                 dist[j]=mat[u][j];
-                pre[j]=u;
+                pre[j]=u; //设置j的前驱节点为u
             }
         }
     }
-    return res;
 }
 
-int smst(int n){
+int smst(int n){ //求次小生成树,对于没使用过的边u->v,假如当前最小生成树,则必产生环,删除环中即u->v的最大边权,得到一个当前次小生成树。
+                 //枚举每个未使用的边,得到一个全局次小生成树
     int mst=INF;
     REP(i,1,n+1){
         REP(j,i+1,n+1){
@@ -108,9 +111,8 @@ int main(){
     while(t--){
         cin>>n>>m;
         REP(i,1,n+1){
-            REP(j,1,n+1){
-                if(i==j) mat[i][j]=0;
-                else mat[i][j]=INF;
+            REP(j,i+1,n+1){
+                mat[i][j]=mat[j][i]=INF; //标记未连通的边的权值为INF
             }
         }
         int u,v,w;
@@ -119,8 +121,7 @@ int main(){
             mat[u][v]=mat[v][u]=w;
         }
         res=prim(n);
-        if(res==-1) {cout<<"Not Unique!"<<endl;continue;}
-        if(res==smst(n)) cout<<"Not Unique!"<<endl;
+        if(res==smst(n)) cout<<"Not Unique!"<<endl; //比较最小生成树和次小生成树的权值和是否相等
         else cout<<res<<endl;
     }
 }
