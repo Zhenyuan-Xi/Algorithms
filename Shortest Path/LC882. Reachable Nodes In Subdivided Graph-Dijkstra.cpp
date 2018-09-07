@@ -31,7 +31,7 @@ const int INF=0x3f3f3f3f;
 const int dx[]={-1,0,1,0},dy[]={0,-1,0,1}; //i=3-i
 /*----------------------------------------------*/
 
-const int MAXN=3000;
+const int MAXN=1000;
 int adj[MAXN][MAXN];
 
 class Solution {
