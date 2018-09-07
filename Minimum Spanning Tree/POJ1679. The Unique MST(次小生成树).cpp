@@ -32,3 +32,95 @@ Output
 3
 Not Unique!
 */
+
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+typedef vector<int> VI;
+typedef vector<vector<int> > VII;
+typedef vector<char> VC;
+typedef vector<string> VS;
+typedef pair<int,int> PII;
+#define REP(i,s,t) for(int i=(s);i<(t);i++)
+#define RREP(i,s,t) for(int i=(s);i>=(t);i--)
+#define ALL(x) (x).begin(),(x).end()
+#define FILL(x,v) memset(x,v,sizeof(x))
+#define LEN(x) sizeof(x)/sizeof(x[0])
+#define MP(x,y) make_pair(x,y)
+const int INF=0x3f3f3f3f;
+const int dx[]={-1,0,1,0},dy[]={0,-1,0,1}; //i=3-i
+/*----------------------------------------------*/
+const int N=105;
+int mat[N][N];
+int vis[N];
+int dist[N];
+int pre[N];
+int res;
+int mmax[N][N];
+int used[N][N];
+
+int prim(int n){
+    int u=1,res=0;
+    FILL(vis,0);
+    FILL(mmax,0);
+    FILL(used,0);
+    FILL(pre,0);
+    vis[u]=1;
+    pre[1]=1;
+    REP(i,1,n+1) dist[i]=mat[u][i];
+    int mmin=INF;
+    REP(i,1,n+1){
+        mmin=INF;
+        REP(j,1,n+1){
+            if(!vis[j]&&mmin>dist[j]){
+                mmin=dist[j];
+                u=j;
+            }
+        }
+        if(mmin==INF) return -1;
+        vis[u]=1;
+        res+=mmin;
+        used[u][pre[u]]=used[pre[u]][u]=1;
+        REP(j,1,n+1){
+            if(vis[j]) mmax[u][j]=mmax[j][u]=max(mmax[j][pre[u]],dist[u]);
+            if(!vis[j]&&dist[j]>mat[u][j]){
+                dist[j]=mat[u][j];
+                pre[j]=u;
+            }
+        }
+    }
+    return res;
+}
+
+int smst(int n){
+    int mst=INF;
+    REP(i,1,n+1){
+        REP(j,i+1,n+1){
+            if(mat[i][j]!=INF&&!used[i][j]) mst=min(mst,res+mat[i][j]-mmax[i][j]);
+        }
+    }
+    if(mst==INF) return -1;
+    return mst;
+}
+
+int main(){
+    int t,n,m;cin>>t;
+    while(t--){
+        cin>>n>>m;
+        REP(i,1,n+1){
+            REP(j,1,n+1){
+                if(i==j) mat[i][j]=0;
+                else mat[i][j]=INF;
+            }
+        }
+        int u,v,w;
+        while(m--){
+            scanf("%d%d%d",&u,&v,&w);
+            mat[u][v]=mat[v][u]=w;
+        }
+        res=prim(n);
+        if(res==-1) {cout<<"Not Unique!"<<endl;continue;}
+        if(res==smst(n)) cout<<"Not Unique!"<<endl;
+        else cout<<res<<endl;
+    }
+}
