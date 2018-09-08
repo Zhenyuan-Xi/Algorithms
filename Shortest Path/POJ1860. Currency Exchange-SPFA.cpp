@@ -29,3 +29,87 @@ Input
 Output
 YES
 */
+
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+typedef vector<int> VI;
+typedef vector<vector<int> > VII;
+typedef vector<char> VC;
+typedef vector<string> VS;
+typedef pair<int,int> PII;
+#define REP(i,s,t) for(int i=(s);i<(t);i++)
+#define RREP(i,s,t) for(int i=(s);i>=(t);i--)
+#define ALL(x) (x).begin(),(x).end()
+#define FILL(x,v) memset(x,v,sizeof(x))
+#define LEN(x) sizeof(x)/sizeof(x[0])
+#define MP(x,y) make_pair(x,y)
+const int INF=0x3f3f3f3f;
+const int dx[]={-1,0,1,0},dy[]={0,-1,0,1}; //i=3-i
+/*----------------------------------------------*/
+const int N=105;
+struct node{
+    int to,next;
+    double r,c;
+}mat[2*N];
+double dist[N];
+int vis[N];
+int head[N];
+int cnt[N];
+int n;
+int idx;
+int m,s;
+double unit;
+bool flg;
+
+void addEdge(int a,int b,double r,double c){
+    mat[idx].next=head[a];
+    mat[idx].to=b;
+    mat[idx].r=r;
+    mat[idx].c=c;
+    head[a]=idx++;
+}
+
+void spfa(int u){
+    queue<int> q;
+    dist[u]=unit;
+    vis[u]=1;
+    cnt[u]++;
+    q.push(u);
+    while(!q.empty()){
+        u=q.front();q.pop();
+        vis[u]=0;
+        for(int i=head[u];~i;i=mat[i].next){
+            int v=mat[i].to;
+            double r=mat[i].r,c=mat[i].c;
+            if(dist[v]<(dist[u]-c)*r){
+                dist[v]=(dist[u]-c)*r;
+                if(!vis[v]){
+                    q.push(v);
+                    vis[v]=1;
+                    cnt[v]++;
+                    if(cnt[v]>=n){flg=true;return;} //节点v入队次数超过n则存在环,即节点v的值可无限增大
+                }
+            }
+        }
+    }
+}
+
+int main(){
+    scanf("%d%d%d%lf",&n,&m,&s,&unit);
+    idx=1;
+    FILL(head,-1);
+    REP(i,0,m){
+        int a,b;
+        double rab,cab,rba,cba;
+        scanf("%d%d%lf%lf%lf%lf",&a,&b,&rab,&cab,&rba,&cba);
+        addEdge(a,b,rab,cab);
+        addEdge(b,a,rba,cba);
+    }
+    FILL(dist,0);
+    FILL(vis,0);
+    FILL(cnt,0);
+    spfa(s);
+    if(flg) cout<<"YES"<<endl;
+    else cout<<"NO"<<endl;
+}
