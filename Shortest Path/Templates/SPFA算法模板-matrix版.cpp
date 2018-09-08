@@ -23,7 +23,7 @@ int vis[N]; //记录节点是否在队列中
 int n;
 
 void spfa(int u){
-    queue<int> q; //使用队列优化Bellman-Ford
+    queue<int> q; //SPFA使用队列优化Bellman-Ford
     q.push(u); //起点入队
     vis[u]=1; //记录节点u入队
     dist[u]=0; //初始化起点距离
