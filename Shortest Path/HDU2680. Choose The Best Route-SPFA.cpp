@@ -35,3 +35,68 @@ Output
 -1
 */
 
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+typedef vector<int> VI;
+typedef vector<vector<int> > VII;
+typedef vector<char> VC;
+typedef vector<string> VS;
+typedef pair<int,int> PII;
+#define REP(i,s,t) for(int i=(s);i<(t);i++)
+#define RREP(i,s,t) for(int i=(s);i>=(t);i--)
+#define ALL(x) (x).begin(),(x).end()
+#define FILL(x,v) memset(x,v,sizeof(x))
+#define LEN(x) sizeof(x)/sizeof(x[0])
+#define MP(x,y) make_pair(x,y)
+const int INF=0x3f3f3f3f;
+const int dx[]={-1,0,1,0},dy[]={0,-1,0,1}; //i=3-i
+/*----------------------------------------------*/
+const int N=1010;
+int mat[N][N];
+int dist[N];
+int n;
+int vis[N];
+
+void spfa(int u){
+    queue<int> q;
+    q.push(u);
+    dist[u]=0;
+    vis[u]=1;
+    while(!q.empty()){
+        u=q.front();q.pop();
+        vis[u]=0;
+        REP(v,1,n+1){
+            if(dist[v]>dist[u]+mat[u][v]){
+                dist[v]=dist[u]+mat[u][v];
+                if(!vis[v]){
+                    q.push(v);
+                    vis[v]=1;
+                }
+            }
+        }
+    }
+}
+
+int main(){
+    int m,s,w;
+    while(scanf("%d%d%d",&n,&m,&s)==3){
+        FILL(mat,0x3f);
+        FILL(dist,0x3f);
+        FILL(vis,0);
+        while(m--){
+            int p,q,t;
+            scanf("%d%d%d",&p,&q,&t);
+            mat[p][q]=t;
+        }
+        cin>>w;
+        while(w--){
+            int a;
+            cin>>a;
+            mat[0][a]=0;
+        }
+        spfa(0);
+        if(dist[s]==INF) cout<<-1<<endl;
+        else cout<<dist[s]<<endl;
+    }
+}
