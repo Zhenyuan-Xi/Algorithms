@@ -39,10 +39,10 @@ public:
         VI prev;
         dist[src]=0;
         REP(i,0,K+1){
-            prev=dist; //拷贝当前dist数组,每次循环每个节点至多更新一次
+            prev=dist; //拷贝当前dist数组,每次循环只松弛一个节点
             for(VI edge:flights){
                 int u=edge[0],v=edge[1],w=edge[2];
-                dist[v]=min(dist[v],prev[u]+w); //top-down动态规划思想,确保节点v的更新不受节点u的更新影响
+                dist[v]=min(dist[v],prev[u]+w); //top-down动态规划思想,确保节点v的松弛不受节点u的松弛影响
             }
         }
         return dist[dst]==INF?-1:dist[dst];
