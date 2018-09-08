@@ -31,3 +31,75 @@ Output
 NO
 YES
 */
+
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+typedef vector<int> VI;
+typedef vector<vector<int> > VII;
+typedef vector<char> VC;
+typedef vector<string> VS;
+typedef pair<int,int> PII;
+#define REP(i,s,t) for(int i=(s);i<(t);i++)
+#define RREP(i,s,t) for(int i=(s);i>=(t);i--)
+#define ALL(x) (x).begin(),(x).end()
+#define FILL(x,v) memset(x,v,sizeof(x))
+#define LEN(x) sizeof(x)/sizeof(x[0])
+#define MP(x,y) make_pair(x,y)
+const int INF=0x3f3f3f3f;
+const int dx[]={-1,0,1,0},dy[]={0,-1,0,1}; //i=3-i
+/*----------------------------------------------*/
+const int N=1010;
+int mat[N][N];
+int dist[N];
+int vis[N];
+int cnt[N];
+int n;
+bool flg;
+
+void spfa(int u){
+    queue<int> q;
+    dist[u]=0;
+    vis[u]=1;
+    cnt[u]++; //增加节点u入队次数
+    q.push(u);
+    while(!q.empty()){
+        u=q.front();q.pop();
+        vis[u]=0;
+        REP(v,1,n+1){
+            if(dist[v]>dist[u]+mat[u][v]){
+                dist[v]=dist[u]+mat[u][v];
+                if(!vis[v]){
+                    q.push(v);
+                    vis[v]=1;
+                    cnt[v]++; //增加节点v入队次数
+                    if(cnt[v]>=n){flg=true;return;} //节点入队次数超过n次,存在环,即该节点可被多次更新直到为负无穷
+                }
+            }
+        }
+    }
+}
+
+int main(){
+    int f,m,w;cin>>f;
+    REP(ff,1,f+1){
+        scanf("%d%d%d",&n,&m,&w);
+        FILL(mat,0x3f);
+        int s,e,t;
+        REP(i,0,m){
+            scanf("%d%d%d",&s,&e,&t);
+            mat[s][e]=mat[e][s]=t;
+        }
+        REP(i,0,w){
+            scanf("%d%d%d",&s,&e,&t);
+            mat[s][e]=-t; //标记负权边
+        }
+        FILL(dist,0x3f);
+        FILL(vis,0);
+        FILL(cnt,0);
+        flg=false;
+        spfa(1);
+        if(flg) cout<<"YES"<<endl;
+        else cout<<"NO"<<endl;
+    }
+}
