@@ -94,3 +94,17 @@ int main(){
     else if(pre[n]==-1) cout<<-1;
     else print(n);
 }
+
+/*
+测试用例
+Input
+5 6
+1 2 2
+2 5 5
+2 3 4
+1 4 1
+4 3 3
+3 5 1
+Output
+1 4 3 5
+*/
