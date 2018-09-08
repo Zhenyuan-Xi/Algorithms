@@ -56,20 +56,20 @@ const int N=1010;
 int mat[N][N];
 int dist[N];
 int n;
-int vis[N];
+int vis[N]; //标记节点是否在队列中
 
 void spfa(int u){
-    queue<int> q;
+    queue<int> q; //SPFA使用队列优化Bellman-Ford
     q.push(u);
     dist[u]=0;
-    vis[u]=1;
+    vis[u]=1; //节点u进入队列
     while(!q.empty()){
         u=q.front();q.pop();
-        vis[u]=0;
+        vis[u]=0; //节点u出列
         REP(v,1,n+1){
             if(dist[v]>dist[u]+mat[u][v]){
                 dist[v]=dist[u]+mat[u][v];
-                if(!vis[v]){
+                if(!vis[v]){ //队列中没有节点v时才存入节点v
                     q.push(v);
                     vis[v]=1;
                 }
@@ -93,9 +93,9 @@ int main(){
         while(w--){
             int a;
             cin>>a;
-            mat[0][a]=0;
+            mat[0][a]=0; //标记起始节点和假节点0之间的距离为0
         }
-        spfa(0);
+        spfa(0); //从假节点0开始,则第一次循环时可以在队列中加入所有起点
         if(dist[s]==INF) cout<<-1<<endl;
         else cout<<dist[s]<<endl;
     }
