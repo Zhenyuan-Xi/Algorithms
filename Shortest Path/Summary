@@ -114,4 +114,6 @@
                601A. The Two Routes: 若存在1->n,则火车可花1小时;若不存在,则汽车花1小时。则只需要求另一个的最短路径即可
                821D. Okabe and City: 无需邻接矩阵,构造点集并检查周围各点是否可达,以此设置边权
 3. POJ  3268. Silver Cow Party: 有向正权图求全源最短路,从x出发求全源最短路,然后将矩阵转置,从x出发求全源最短路,等同于从各点出发到x的全源最短路
+        3259. Wormholes: SPFA判断是否存在负权环
+        1860. Currency Exchange: SPFA判断是否存在正权环
 4. HDU  2680. Choose The Best Route: SPFA模板题
