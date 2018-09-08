@@ -20,12 +20,15 @@ int mat[N][N]; //记录邻接矩阵
 int dist[N]; //记录到达各点的最短距离
 int pre[N]; //记录最短路径
 int vis[N]; //记录节点是否在队列中
+int cnt[N]; //记录各节点入队的次数
 int n;
+bool cycle;
 
 void spfa(int u){
     queue<int> q; //SPFA使用队列优化Bellman-Ford
     q.push(u); //起点入队
     vis[u]=1; //记录节点u入队
+    cnt[u]++; //增加节点u入队次数
     dist[u]=0; //初始化起点距离
     while(!q.empty()){
         u=q.front();q.pop(); //提取当前节点
@@ -37,6 +40,8 @@ void spfa(int u){
                 if(!vis[v]){
                     q.push(v); //新节点v入队
                     vis[v]=1; //标记新节点v入队
+                    cnt[v]++; //增加新节点v入队次数
+                    if(cnt[v]>=n){cycle=true;return;} //节点入队次数超过n则存在环
                 }
             }
         }
@@ -57,11 +62,14 @@ int main(){
         scanf("%d%d%d",&u,&v,&w);
         mat[u][v]=mat[v][u]=w; //无向图初始化所有边
     }
+    cycle=false;
+    FILL(cnt,0);
     FILL(pre,-1);
     FILL(dist,0x3f);
     FILL(vis,0);
     spfa(1);
-    if(pre[n]==-1) cout<<-1;
+    if(cycle) cout<<"have cycle";
+    else if(pre[n]==-1) cout<<-1;
     else print(n);
 }
 
