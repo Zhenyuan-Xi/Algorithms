@@ -23,10 +23,10 @@ int n;
 
 void dijkstra(int u){
     queue<int> q; //未经堆优化
-    q.push(1); //起点入队
-    dist[1]=0; //初始化起点距离
+    q.push(u); //起点入队
+    dist[u]=0; //初始化起点距离
     while(!q.empty()){
-        int u=q.front();q.pop(); //提取当前节点
+        u=q.front();q.pop(); //提取当前节点
         REP(v,1,n+1){ //松弛当前边,更新其余各点的最短距离
             if(dist[v]>dist[u]+mat[u][v]){ //找到到达v的更短路径
                 dist[v]=dist[u]+mat[u][v]; //更新到达v的最短距离
