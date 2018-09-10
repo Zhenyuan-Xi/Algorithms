@@ -123,4 +123,5 @@
 4. HDU  2680. Choose The Best Route: SPFA模板题
         2544. 最短路: Floyd-Warshall模板题
         1869. 六度分离: Floyd-Warshall求全源最短路,检查所有距离是否满足条件
+5. UVa  10048. Audiophobia: Floyd-Warshall模板求u->v路径上其中最大的一个边权
         
