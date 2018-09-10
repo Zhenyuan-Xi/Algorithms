@@ -24,3 +24,63 @@ Input
 Output
 2
 */
+
+#include <bits/stdc++.h>
+/*
+#include<stdio.h>
+#include<iostream>
+#include<algorithm>
+#include<queue>
+#include<vector>
+#include<string.h>
+*/
+using namespace std;
+typedef long long ll;
+typedef vector<int> VI;
+typedef vector<vector<int> > VII;
+typedef vector<char> VC;
+typedef vector<string> VS;
+typedef pair<int,int> PII;
+#define REP(i,s,t) for(int i=(s);i<(t);++i)
+#define RREP(i,s,t) for(int i=(s);i>=(t);--i)
+#define ALL(x) (x).begin(),(x).end()
+#define FILL(x,v) memset(x,v,sizeof(x))
+#define LEN(x) sizeof(x)/sizeof(x[0])
+#define MP(x,y) make_pair(x,y)
+const int INF=0x3f3f3f3f;
+const int dx[]={-1,0,1,0},dy[]={0,-1,0,1}; //i=3-i
+/*----------------------------------------------*/
+const int N=110;
+int n,m;
+int dist[N][N];
+
+void floyd(){
+    REP(k,1,n+1){
+        REP(i,1,n+1){
+            REP(j,1,n+1){
+                dist[i][j]=dist[i][j]||(dist[i][k]&&dist[k][j]); //连通性floyd模板
+            }
+        }
+    }
+}
+
+int main(){
+    scanf("%d%d",&n,&m);
+    FILL(dist,0);
+    while(m--){
+        int u,v;
+        scanf("%d%d",&u,&v);
+        dist[u][v]=1;
+    }
+    floyd(); //floyd求传递闭包
+    int res=0;
+    REP(i,1,n+1){
+        int cnt=0;
+        REP(j,1,n+1){
+            if(i==j) continue;
+            if(dist[i][j]||dist[j][i]) cnt++; //累计节点出度或入度
+        }
+        if(cnt==n-1) res++; //当节点出度+入度=n-1时,该节点的位置可以确定
+    }
+    cout<<res;
+}
