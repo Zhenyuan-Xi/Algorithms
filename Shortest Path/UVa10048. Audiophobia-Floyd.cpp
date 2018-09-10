@@ -107,7 +107,7 @@ void floyd(){
     REP(k,1,n+1){
         REP(i,1,n+1){
             REP(j,1,n+1){
-                dist[i][j]=min(dist[i][j],max(dist[i][k],dist[k][j]));
+                dist[i][j]=min(dist[i][j],max(dist[i][k],dist[k][j])); //floyd模板求i->j上的最大的一个边权
             }
         }
     }
