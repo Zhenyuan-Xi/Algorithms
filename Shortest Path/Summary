@@ -99,6 +99,9 @@
             if dist[i][j] > dist[i][k] + dist[k][j] 
               dist[i][j] ← dist[i][k] + dist[k][j]
           end if
+   在有向图中,如果不需要知道边权,只需要求解连通或不连通的问题,则可以用1或0来代替,将原代码中dist[i][j]=min(dist[i][j],dist[i][k]+dist[k][j])改为
+   dist[i][j]=dist[i][j]||(dist[i][k]&&dist[k][j]),即可求得有向图的传递闭包。
+   传递闭包: 有向图的传递闭包是一个具有相同顶点的有向图,所有直接或间接可达的两点间都有一条边。
 
 5. Johnson: 求多源、可以有负边权的最短路,思路基于使用Dijkstra对全图节点遍历,通过re-weight对边权重新赋权。
    re-weight:在图中新增源顶点,其与其他各边的边权为0,使用Bellman-Ford计算新增节点到其他节点的最短路径h[],则w'(u,v)=w(u,v)+(h[u]-h[v])。
@@ -116,4 +119,8 @@
 3. POJ  3268. Silver Cow Party: 有向正权图求全源最短路,从x出发求全源最短路,然后将矩阵转置,从x出发求全源最短路,等同于从各点出发到x的全源最短路
         3259. Wormholes: SPFA判断是否存在负权环,即每个节点最多入队n-1次
         1860. Currency Exchange: SPFA判断是否存在正权环,即每个节点最多入队n-1次
+        3660. Cow Contest: Floyd-Warshall求传递闭包,即若a->c,b->c时可确定c(dist[a][c]=dist[c][a]=1),不可确定a,b
 4. HDU  2680. Choose The Best Route: SPFA模板题
+        2544. 最短路: Floyd-Warshall模板题
+        1869. 六度分离: Floyd-Warshall求全源最短路,检查所有距离是否满足条件
+        
