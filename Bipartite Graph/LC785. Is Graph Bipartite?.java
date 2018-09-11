@@ -30,16 +30,16 @@ public boolean isBipartite(int[][] graph) {
     int n=graph.length;
     int[] colors=new int[n];
     for(int i=0;i<n;i++){
-        if(colors[i]==0&&dfs(graph,colors,i,1)) return false;
+        if(colors[i]==0&&!dfs(graph,colors,i,1)) return false;
     }
     return true;
 }
 
 private boolean dfs(int[][] graph,int[] colors,int i,int color){
-    if(colors[i]!=0) return colors[i]!=color; //若当前节点有颜色且不等于当前该染的颜色,则与父节点颜色相同,不合法
+    if(colors[i]!=0) return colors[i]==color; //若当前节点有颜色且不等于当前该染的颜色,则与父节点颜色相同,不合法
     colors[i]=color; //染色
     for(int j:graph[i]){
-        if(dfs(graph,colors,j,-color)) return true; 
+        if(!dfs(graph,colors,j,-color)) return false; 
     }
-    return false;
+    return true;
 }
