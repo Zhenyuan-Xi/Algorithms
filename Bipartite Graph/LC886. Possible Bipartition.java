@@ -20,3 +20,31 @@ Output: false
 Input: N = 5, dislikes = [[1,2],[2,3],[3,4],[4,5],[1,5]]
 Output: false
 */
+
+class Solution {
+    public boolean possibleBipartition(int N, int[][] dislikes) {
+        
+        List<Integer>[] adj=new ArrayList[N+1];
+        for(int i=0;i<=N;i++){
+            adj[i]=new ArrayList<>();
+        }
+        for(int[] dislike:dislikes){
+            adj[dislike[0]].add(dislike[1]);
+            adj[dislike[1]].add(dislike[0]);
+        }
+        int[] colors=new int[N+1];
+        for(int i=0;i<=N;i++){
+            if(colors[i]==0&&!dfs(adj,colors,i,1)) return false;
+        }
+        return true;
+    }
+    
+    private boolean dfs(List<Integer>[] adj,int[] colors,int i,int color){
+        if(colors[i]!=0) return colors[i]==color;
+        colors[i]=color;
+        for(int j:adj[i]){
+            if(!dfs(adj,colors,j,-color)) return false;
+        }
+        return true;
+    }
+}
