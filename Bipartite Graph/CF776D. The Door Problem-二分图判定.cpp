@@ -50,3 +50,77 @@ After toggling switch 3, we get [0, 0, 0] that means all doors are locked.
 Then, after toggling switch 1, we get [1, 1, 1] that means all doors are unlocked.
 It can be seen that for the first and for the third example inputs it is not possible to make all doors unlocked.
 */
+
+#include <bits/stdc++.h>
+/*
+#include<stdio.h>
+#include<iostream>
+#include<algorithm>
+#include<queue>
+#include<vector>
+#include<string.h>
+*/
+using namespace std;
+typedef long long ll;
+typedef vector<int> VI;
+typedef vector<vector<int> > VII;
+typedef vector<char> VC;
+typedef vector<string> VS;
+typedef pair<int,int> PII;
+#define REP(i,s,t) for(int i=(s);i<(t);++i)
+#define RREP(i,s,t) for(int i=(s);i>=(t);--i)
+#define ALL(x) (x).begin(),(x).end()
+#define FILL(x,v) memset(x,v,sizeof(x))
+#define LEN(x) sizeof(x)/sizeof(x[0])
+#define MP(x,y) make_pair(x,y)
+const int INF=0x3f3f3f3f;
+const int dx[]={-1,0,1,0},dy[]={0,-1,0,1}; //i=3-i
+/*----------------------------------------------*/
+const int N=1e5+10;
+int states[N]; //每扇门的状态
+VI stwich[N]; //每扇门对应的两个开关
+vector<PII> edges[N]; //开关之间的边,开关u和v由门的状态决定,若门为0,则u和v属于不同集合,否则u和v属于同一集合,构成二分图,即edges[u]=(v,states[i])
+int colors[N]; 
+int n,m;
+bool ok;
+
+void dfs(int u,int color){
+    if(!ok) return;
+    if(colors[u]!=-1){
+        ok=colors[u]==color;
+        return;
+    }
+    colors[u]=color;
+    REP(i,0,edges[u].size()){
+        int v=edges[u][i].first,w=edges[u][i].second;
+        // (color,state)->new color: 0,0->1  0,1->0  1,0->0  1,1->1
+        dfs(v,1-(color^w));
+    }
+}
+
+int main(){
+    scanf("%d%d",&n,&m);
+    FILL(colors,-1);
+    ok=true;
+    REP(i,1,n+1){
+        scanf("%d",&states[i]);
+    }
+    REP(i,1,m+1){
+        int j,k;
+        scanf("%d",&k);
+        while(k--){
+            scanf("%d",&j);
+            stwich[j].push_back(i); //stwich[门]=(开关u,开关v)
+        }
+    }
+    REP(i,1,n+1){
+        int u=stwich[i][0],v=stwich[i][1];
+        edges[u].push_back(MP(v,states[i])); //edges[开关u]=(开关v,门状态)
+        edges[v].push_back(MP(u,states[i])); //edges[开关v]=(开关u,门状态)
+    }
+    REP(i,1,m+1){
+        if(colors[i]==-1) dfs(i,0);
+    }
+    if(ok) cout<<"YES";
+    else cout<<"NO";
+}
