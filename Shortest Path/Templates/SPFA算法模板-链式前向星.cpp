@@ -24,7 +24,7 @@ const int INF=0x3f3f3f3f;
 const int dx[]={-1,0,1,0},dy[]={0,-1,0,1}; //i=3-i
 /*----------------------------------------------*/
 const int N=1010;
-struct node{ //结构Node
+struct node{ //结构Node,构造链式前向星作为静态邻接表
     int to,next,w;
 }mat[N];
 int dist[N];
