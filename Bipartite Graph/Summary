@@ -38,6 +38,7 @@ Konig定理: 二分图中的最大匹配数等于这个图中的最小点覆盖�
 1. LeetCode  785. Is Graph Bipartite?: 交叉染色DFS
              886. Possible Bipartite: 构建邻接表后交叉染色DFS
 2. Codeforces  688C. NP-Hard Problem: 构建邻接表后交叉染色DFS,使用color^1=color'(0->1,1->0)来存储两部分为res[color]
+               776
 3. HDU  2444. The Accomodation of Students: 
         2063. 过山车:
         1150. Machine Schedule: 
