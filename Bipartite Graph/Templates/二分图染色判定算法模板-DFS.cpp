@@ -1,4 +1,3 @@
-
 #include <bits/stdc++.h>
 /*
 #include<stdio.h>
@@ -24,7 +23,7 @@ typedef pair<int,int> PII;
 const int INF=0x3f3f3f3f;
 const int dx[]={-1,0,1,0},dy[]={0,-1,0,1}; //i=3-i
 /*----------------------------------------------*/
-const int N=100010;
+const int N=1010;
 VI adj[N];
 VI res[2];
 int colors[N];
@@ -66,3 +65,14 @@ int main(){
             cout<<res[1][i]<<" ";
     }
 }
+
+/*
+测试用例
+Input
+4 2
+1 2
+2 3
+Output
+2 
+1 3 4
+*/
