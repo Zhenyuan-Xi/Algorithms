@@ -33,3 +33,83 @@ Input
 Output
 3
 */
+
+#include <bits/stdc++.h>
+/*
+#include<stdio.h>
+#include<iostream>
+#include<algorithm>
+#include<queue>
+#include<vector>
+#include<string.h>
+*/
+using namespace std;
+typedef long long ll;
+typedef vector<int> VI;
+typedef vector<vector<int> > VII;
+typedef vector<char> VC;
+typedef vector<string> VS;
+typedef pair<int,int> PII;
+#define REP(i,s,t) for(int i=(s);i<(t);++i)
+#define RREP(i,s,t) for(int i=(s);i>=(t);--i)
+#define ALL(x) (x).begin(),(x).end()
+#define FILL(x,v) memset(x,v,sizeof(x))
+#define LEN(x) sizeof(x)/sizeof(x[0])
+#define MP(x,y) make_pair(x,y)
+const int INF=0x3f3f3f3f;
+const int dx[]={-1,0,1,0},dy[]={0,-1,0,1}; //i=3-i
+/*----------------------------------------------*/
+const int N=210;
+const int M=2010;
+struct edge{
+    int to,next;
+}edges[M];
+int head[N],tot;
+int vis[N];
+int link[N];
+int n;
+
+void init(){
+    tot=0;
+    FILL(head,-1);
+}
+
+void addEdge(int u,int v){
+    edges[tot].to=v;
+    edges[tot].next=head[u];
+    head[u]=tot++;
+}
+
+bool hungarian(int u){
+    for(int i=head[u];~i;i=edges[i].next){
+        int v=edges[i].to;
+        if(!vis[v]){
+            vis[v]=1;
+            if(!link[v]||hungarian(link[v])){
+                link[v]=u;
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+int main(){
+    int m,k;
+    while(scanf("%d%d%d",&n,&m,&k)==3){
+        init();
+        while(k--){
+            int ii,u,v;
+            scanf("%d%d%d",&ii,&u,&v); //找最少的点,覆盖所有边,即以mode数量为节点,每个job的两个mode之间为边,求最小点覆盖=最大匹配
+            addEdge(u,v+n);
+            addEdge(v+n,u);
+        }
+        FILL(link,0);
+        int res=0;
+        REP(i,1,n+1){
+            FILL(vis,0);
+            if(hungarian(i)) res++;
+        }
+        cout<<res<<endl;
+    }
+}
