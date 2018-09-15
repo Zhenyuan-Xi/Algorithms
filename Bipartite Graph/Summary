@@ -42,7 +42,7 @@ Konig定理: 二分图中的最大匹配数等于这个图中的最小点覆盖�
 3. HDU  2444. The Accomodation of Students: 先判断是否为二分图,然后由匈牙利算法求得最大匹配
         2063. 过山车: 最大匹配模板题,注意u->v中两个节点的序号,u=u,v=v+m(m为点u的总数)
         1150. Machine Schedule: 两个machine的所有mode为节点划分二分图,求最少的mode数使得覆盖所有边,即求最小点覆盖=求最大匹配
-4. POJ  3041. Asteroids:         
-        1274. The Perfect Stall: 
+4. POJ  3041. Asteroids: 将行列抽象为点,矩阵里的点抽象为连接行列的边,则该点的行列不能同时出现在同一集合里,构成二分图,求最小点覆盖        
+        1274. The Perfect Stall: 最大匹配模板题
         2239. Selecting Courses: 以课程号和课程时间(需要hash)为两个点集划分二分图,寻找最大匹配,注意只需要一条从课程号到课程时间的边
            
