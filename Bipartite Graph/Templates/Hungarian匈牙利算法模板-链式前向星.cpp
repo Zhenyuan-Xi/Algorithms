@@ -75,3 +75,16 @@ int main(){
     }
     cout<<res;
 }
+
+/*
+测试用例
+Input
+6 5
+1 2
+1 3
+1 4
+2 5
+3 6
+Output
+6
+*/
