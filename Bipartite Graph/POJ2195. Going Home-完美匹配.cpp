@@ -1,9 +1,11 @@
 /*
 On a grid map there are n little men and n houses. In each unit time, every little man can move one unit step, either horizontally, or vertically, to an adjacent point. 
-For each little man, you need to pay a $1 travel fee for every step he moves, until he enters a house. The task is complicated with the restriction that each house can accommodate only one little man. 
+For each little man, you need to pay a $1 travel fee for every step he moves, until he enters a house. 
+The task is complicated with the restriction that each house can accommodate only one little man. 
 Your task is to compute the minimum amount of money you need to pay in order to send these n little men into those n different houses. 
 The input is a map of the scenario, a '.' means an empty space, an 'H' represents a house on that point, and am 'm' indicates there is a little man on that point. 
-You can think of each point on the grid map as a quite large square, so it can hold n little men at the same time; also, it is okay if a little man steps on a grid with a house without entering that house.
+You can think of each point on the grid map as a quite large square, so it can hold n little men at the same time; 
+also, it is okay if a little man steps on a grid with a house without entering that house.
 
 Input
 There are one or more test cases in the input. Each case starts with a line giving two integers N and M, where N is the number of rows of the map, and M is the number of columns. 
