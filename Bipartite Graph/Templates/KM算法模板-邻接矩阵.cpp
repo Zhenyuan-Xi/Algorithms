@@ -81,6 +81,7 @@ int km(){
     }
     int res=0;
     REP(i,1,n+1){
+        //cout<<link[i]<<" "<<i<<" "<<mat[link[i]][i]<<endl;
         res+=mat[link[i]][i]; //统计边权
     }
     return res;
@@ -99,3 +100,15 @@ int main(){
         cout<<res<<endl;
     }
 }
+
+/*
+测试用例
+Input
+4
+10 20 40 30
+8 9 11 31
+19 20 41 35
+110 2 50 40
+Output
+202
+*/
