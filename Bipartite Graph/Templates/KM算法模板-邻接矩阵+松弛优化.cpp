@@ -32,7 +32,7 @@ int visy[N]; //记录每一轮匹配中已匹配的Y点集
 int lx[N]; //记录X点集的可行顶标
 int ly[N]; //记录Y点集的可行顶标
 int link[N]; //记录两个点集的匹配情况,link[y]=x代表x->y
-int slack[N]; //记录两个点集中的点能够匹配还需要的最小值,slack[y]=w代表y被匹配还需要w
+int slack[N]; //松弛优化,记录两个点集中的点能够匹配还需要的最小值,slack[y]=w代表y被匹配还需要w
 int n;
 
 void init(){
