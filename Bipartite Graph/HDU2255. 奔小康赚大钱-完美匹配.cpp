@@ -10,3 +10,105 @@ Input
 Output
 请对每组数据输出最大的收入值，每组的输出占一行。
 */
+
+#include <bits/stdc++.h>
+/*
+#include<stdio.h>
+#include<iostream>
+#include<algorithm>
+#include<map>
+#include<set>
+#include<queue>
+#include<vector>
+#include<string.h>
+*/
+using namespace std;
+typedef long long ll;
+typedef vector<int> VI;
+typedef vector<vector<int> > VII;
+typedef vector<char> VC;
+typedef vector<string> VS;
+typedef pair<int,int> PII;
+#define REP(i,s,t) for(int i=(s);i<(t);++i)
+#define RREP(i,s,t) for(int i=(s);i>=(t);--i)
+#define ALL(x) (x).begin(),(x).end()
+#define FILL(x,v) memset(x,v,sizeof(x))
+#define LEN(x) sizeof(x)/sizeof(x[0])
+#define MP(x,y) make_pair(x,y)
+const int INF=0x3f3f3f3f;
+const int dx[]={-1,0,1,0},dy[]={0,-1,0,1}; //i=3-i
+/*----------------------------------------------*/
+const int N=310;
+int mat[N][N];
+int visx[N];
+int visy[N];
+int lx[N];
+int ly[N];
+int link[N];
+int slack[N];
+int n;
+
+void init(){
+    FILL(link,0);
+    FILL(ly,0);
+    REP(u,1,n+1){
+        lx[u]=-INF;
+        REP(v,1,n+1) lx[u]=max(lx[u],mat[u][v]);
+    }
+}
+
+bool find(int u){
+    visx[u]=1;
+    REP(v,1,n+1){
+        if(visy[v]) continue;
+        int gap=lx[u]+ly[v]-mat[u][v];
+        if(gap==0){
+            visy[v]=1;
+            if(!link[v]||find(link[v])){
+                link[v]=u;
+                return true;
+            }
+        }else slack[v]=min(slack[v],gap);
+    }
+    return false;
+}
+
+int km(){
+    init();
+    REP(u,1,n+1){
+        FILL(slack,0x3f);
+        while(1){
+            FILL(visx,0);
+            FILL(visy,0);
+            if(find(u)) break;
+            int d=INF;
+            REP(i,1,n+1){
+                if(!visy[i]) d=min(d,slack[i]);
+            }
+            REP(i,1,n+1){
+                if(visx[i]) lx[i]-=d; 
+                if(visy[i]) ly[i]+=d;
+                else slack[i]-=d;
+            }
+        }
+    }
+    int res=0;
+    REP(u,1,n+1){
+        res+=mat[link[u]][u];
+    }
+    return res;
+}
+
+int main(){
+    while(~scanf("%d",&n)){
+        REP(u,1,n+1){
+            REP(v,1,n+1){
+                int w;
+                scanf("%d",&w);
+                mat[u][v]=w;
+            }
+        }
+        int res=km();
+        cout<<res<<endl;
+    }
+}
