@@ -10,7 +10,8 @@
                     3. 将这条路径上的每一条有向边u->v的残量减去delta,同时对于反向边v->u的残量加上delta,用于记录不走u->v的另一种选择。
                     4. 重复上述过程，直到找不出增广路，此时我们就找到了最大流。
 
-Edmonds-Karp算法: input:
+Edmonds-Karp算法: 时间复杂度为O(VE^2)
+                  input:
                       graph   (graph[v] should be the list of edges coming out of vertex v.
                                Each edge should have a capacity, flow, source and sink as parameters,
                                as well as a pointer to the reverse edge.)
@@ -48,3 +49,7 @@ Edmonds-Karp算法: input:
 
                   until pred[t] = null  (i.e., until no augmenting path was found)
                   return flow
+
+Dinic算法: 引入分层图的概念,对于每一个节点,根据从源点开始的BFS为节点分配深度,然后用DFS寻找增广路,每一个由节点u得到v必须保证depth(v)=depth(u)+1。
+           时间复杂度为O(V^2E)
+           
