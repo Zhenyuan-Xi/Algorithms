@@ -33,67 +33,67 @@ int lx[N]; //记录X点集的可行顶标
 int ly[N]; //记录Y点集的可行顶标
 int link[N]; //记录两个点集的匹配情况,link[y]=x代表x->y
 int slack[N]; //松弛优化,记录两个点集中的点能够匹配还需要的最小值,slack[y]=w代表y被匹配还需要w
-int n;
+int nx,ny;
 
 void init(){
     FILL(link,0);
     FILL(ly,0); //初始化Y点集的可行顶标为0
-    REP(u,1,n+1){
-        lx[u]=-INF;
-        REP(v,1,n+1) lx[u]=max(lx[u],mat[u][v]); //初始化X点集的可行顶标为该点出边的最大边权
+    REP(x,1,nx+1){
+        lx[x]=-INF;
+        REP(y,1,ny+1) lx[x]=max(lx[x],mat[x][y]); //初始化X点集的可行顶标为该点出边的最大边权
     }
 }
 
-bool find(int u){
-    visx[u]=1;
-    REP(v,1,n+1){
-        if(visy[v]) continue; //只参与一次匹配
-        int gap=lx[u]+ly[v]-mat[u][v]; 
+bool find(int x){
+    visx[x]=1;
+    REP(y,1,ny+1){
+        if(visy[y]) continue; //只参与一次匹配
+        int gap=lx[x]+ly[y]-mat[x][y]; 
         if(gap==0){ //只使用可行边,即满足相等子图条件lx[x]+ly[y]=mat[x][y]的边
-            visy[v]=1;
-            if(!link[v]||find(link[v])){
-                link[v]=u;
+            visy[y]=1;
+            if(!link[y]||find(link[y])){
+                link[y]=x;
                 return true;
             }
-        }else slack[v]=min(slack[v],gap); //更新松弛量
+        }else slack[y]=min(slack[y],gap); //更新松弛量
     }
     return false;
 }
 
 int km(){
     init();
-    REP(i,1,n+1){ //为每个节点寻找匹配点
+    REP(x,1,nx+1){ //为每个节点寻找匹配点
         FILL(slack,0x3f); 
         while(1){
             FILL(visx,0);
             FILL(visy,0);
-            if(find(i)) break; //找到完全匹配
+            if(find(x)) break; //找到完全匹配
             int d=INF;
-            REP(j,1,n+1){
-                if(!visy[j]) d=min(d,slack[j]); //求出增减量
+            REP(y,1,ny+1){
+                if(!visy[y]) d=min(d,slack[y]); //求出增减量
             }
-            REP(j,1,n+1){
-                if(visx[j]) lx[j]-=d; //X点集中已匹配的点的可行顶标减去增减量
-                if(visy[j]) ly[j]+=d; //Y点集中已匹配的点的可行顶标加上增减量
-                else slack[j]-=d; //更新松弛量
+            REP(x,1,nx+1) if(visx[x]) lx[x]-=d; //X点集中已匹配的点的可行顶标减去增减量
+            REP(y,1,ny+1){
+                if(visy[y]) ly[y]+=d; //Y点集中已匹配的点的可行顶标加上增减量
+                else slack[y]-=d; //更新松弛量
             }
         }
     }
     int res=0;
-    REP(i,1,n+1){
-        //cout<<link[i]<<" "<<i<<" "<<mat[link[i]][i]<<endl;
-        res+=mat[link[i]][i]; //统计边权
+    REP(y,1,ny+1){
+        //cout<<link[y]<<" "<<y<<" "<<mat[link[y]][y]<<endl;
+        res+=mat[link[y]][y]; //统计边权
     }
     return res;
 }
 
 int main(){
-    while(~scanf("%d",&n)){
-        REP(u,1,n+1){
-            REP(v,1,n+1){
+    while(~scanf("%d%d",&nx,&ny)){
+        REP(x,1,nx+1){
+            REP(y,1,ny+1){
                 int w;
                 scanf("%d",&w);
-                mat[u][v]=w; //构造邻接矩阵
+                mat[x][y]=w; //构造邻接矩阵
             }
         }
         int res=km();
@@ -104,11 +104,11 @@ int main(){
 /*
 测试用例
 Input
-4
-10 20 40 30
-8 9 11 31
-19 20 41 35
-110 2 50 40
+4 5
+10 20 40 30 25
+8 9 11 31 20
+19 20 41 35 25
+11 2 50 40 10
 Output
-202
+126
 */
