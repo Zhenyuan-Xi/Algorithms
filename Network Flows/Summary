@@ -5,7 +5,46 @@
 性质: 对于任意一条有向边(u,v),总有k[u][v]=-k[v][u],即一条边的反边上的流是这条边的流的相反数。
 
 网络流的最大流算法指一个流量方案使得网络中流量最大。
-该算法基于增广路定理: 1. 找到一条从源点到汇点的路径,使得路径上任意一条边的残量>0,即还可以分配流量,这条路即为增广路。
-                    2. 找到这条路径上最小的F[u][v](设F[u][v]表示u->v这条边上的残量即剩余流量),记为flow。
-                    3. 将这条路径上的每一条有向边u->v的残量减去flow,同时对于反向边v->u的残量加上flow。
+该算法基于增广路定理: 1. 找到一条从源点到汇点的路径,使得路径上任意一条边的残量>0,即还可以分配流量,此流称为可行流(零流即为一个可行流),该路径为增广路。
+                    2. 找到这条路径上最小的F[u][v](设F[u][v]表示u->v这条边上的残量即剩余流量),记为delta。
+                    3. 将这条路径上的每一条有向边u->v的残量减去delta,同时对于反向边v->u的残量加上delta,用于记录不走u->v的另一种选择。
                     4. 重复上述过程，直到找不出增广路，此时我们就找到了最大流。
+
+Edmonds-Karp算法: input:
+                      graph   (graph[v] should be the list of edges coming out of vertex v.
+                               Each edge should have a capacity, flow, source and sink as parameters,
+                               as well as a pointer to the reverse edge.)
+                      s       (Source vertex)
+                      t       (Sink vertex)
+                  output:
+                      flow    (Value of maximum flow)
+
+                  flow := 0   (Initialize flow to zero)
+                  repeat
+                      (Run a bfs to find the shortest s-t path.
+                       We use 'pred' to store the edge taken to get to each vertex,
+                       so we can recover the path afterwards)
+                      q := queue()
+                      q.push(s)
+                      pred := array(graph.length)
+                      while not empty(q)
+                          cur := q.pull()
+                          for Edge e in graph[cur]
+                               if pred[e.t] = null and e.t ≠ s and e.cap > e.flow
+                                  pred[e.t] := e
+                                  q.push(e.t)
+
+                      if not (pred[t] = null)         
+                          (We found an augmenting path.
+                           See how much flow we can send) 
+                          df := ∞
+                          for (e := pred[t]; e ≠ null; e := pred[e.s])
+                              df := min(df, e.cap - e.flow)
+                          (And update edges by that amount)
+                          for (e := pred[t]; e ≠ null; e := pred[e.s])
+                              e.flow  := e.flow + df
+                              e.rev.flow := e.rev.flow - df
+                          flow := flow + df
+
+                  until pred[t] = null  (i.e., until no augmenting path was found)
+                  return flow
