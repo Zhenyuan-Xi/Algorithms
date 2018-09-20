@@ -69,7 +69,7 @@ bool bfs(int s,int t){ //BFS通过分层图寻找可行流
     while(!q.empty()){
         int cur=q.front();q.pop();
         REP(i,1,n+1){
-            if(mat[cur][i]>0&&level[i]==-1){ //未流过节点i并且cur->i还有残量
+            if(mat[cur][i]>0&&~level[i]){ //未流过节点i并且cur->i还有残量
                 level[i]=level[cur]+1; //标记层数
                 q.push(i);
             }
