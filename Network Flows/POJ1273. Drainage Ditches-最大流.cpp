@@ -61,7 +61,7 @@ int mat[N][N];
 int level[N];
 int n,m;
 
-bool bfs(int s,int t){
+bool bfs(int s,int t){ //BFS通过分层图寻找可行流
     FILL(level,-1);
     queue<int> q;
     q.push(s);
@@ -69,8 +69,8 @@ bool bfs(int s,int t){
     while(!q.empty()){
         int cur=q.front();q.pop();
         REP(i,1,n+1){
-            if(mat[cur][i]>0&&level[i]==-1){
-                level[i]=level[cur]+1;
+            if(mat[cur][i]>0&&level[i]==-1){ //未流过节点i并且cur->i还有残量
+                level[i]=level[cur]+1; //标记层数
                 q.push(i);
             }
         }
@@ -78,11 +78,13 @@ bool bfs(int s,int t){
     return level[t]>0;
 }
 
-int dinic(int s,int t,int delta){
+int dinic(int s,int t,int delta){ //DFS寻找增广路
     if(s==t) return delta;
     int flow;
     REP(i,1,n+1){
-        if(level[i]==level[s]+1&&mat[s][i]>0&&(flow=dinic(i,t,min(delta,mat[s][i])))){
+        if(level[i]==level[s]+1&&mat[s][i]>0&&(flow=dinic(i,t,min(delta,mat[s][i])))){ //满足分层图条件
+                                                                                       //还有残量
+                                                                                       //从该点出发以新的delta还可以找到增广路
             mat[s][i]-=flow;
             mat[i][s]+=flow;
             return flow;
@@ -93,7 +95,7 @@ int dinic(int s,int t,int delta){
 
 int max_flow(int s,int t){
     int res=0,tres=0;
-    while(bfs(s,t)){
+    while(bfs(s,t)){ //当找到可行流时,进行dinic算法
         while(tres=dinic(s,t,INF)) res+=tres;
     }
     return res;
@@ -105,7 +107,7 @@ int main(){
         while(m--){
             int u,v,c;
             scanf("%d%d%d",&u,&v,&c);
-            mat[u][v]+=c;
+            mat[u][v]+=c; //初始化邻接矩阵
         }
         int res=max_flow(1,n);
         cout<<res<<endl;
