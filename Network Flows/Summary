@@ -53,6 +53,6 @@ Edmonds-Karp算法: 时间复杂度为O(VE^2)
 Dinic算法: 引入分层图的概念,对于每一个节点,根据从源点开始的BFS为节点分配深度,然后用DFS寻找增广路,每一个由节点u得到v必须保证depth(v)=depth(u)+1。
            时间复杂度为O(V^2E)
            
-1. POJ  1273. Drainage Ditches: 
+1. POJ  1273. Drainage Ditches: Dinic算法模板题
         2455. Secret Milking Machine:
         1149. Pigs:
