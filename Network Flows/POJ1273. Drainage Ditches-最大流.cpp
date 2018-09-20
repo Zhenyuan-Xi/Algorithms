@@ -28,3 +28,86 @@ Input
 Output
 50
 */
+
+#include <bits/stdc++.h>
+/*
+#include<stdio.h>
+#include<iostream>
+#include<algorithm>
+#include<map>
+#include<set>
+#include<queue>
+#include<vector>
+#include<string.h>
+*/
+using namespace std;
+typedef long long ll;
+typedef vector<int> VI;
+typedef vector<vector<int> > VII;
+typedef vector<char> VC;
+typedef vector<string> VS;
+typedef pair<int,int> PII;
+#define REP(i,s,t) for(int i=(s);i<(t);++i)
+#define RREP(i,s,t) for(int i=(s);i>=(t);--i)
+#define ALL(x) (x).begin(),(x).end()
+#define FILL(x,v) memset(x,v,sizeof(x))
+#define LEN(x) sizeof(x)/sizeof(x[0])
+#define MP(x,y) make_pair(x,y)
+const int INF=0x3f3f3f3f;
+const int dx[]={-1,0,1,0},dy[]={0,-1,0,1}; //i=3-i
+/*----------------------------------------------*/
+const int N=210;
+int mat[N][N];
+int level[N];
+int n,m;
+
+bool bfs(int s,int t){
+    FILL(level,-1);
+    queue<int> q;
+    q.push(s);
+    level[s]=0;
+    while(!q.empty()){
+        int cur=q.front();q.pop();
+        REP(i,1,n+1){
+            if(mat[cur][i]>0&&level[i]==-1){
+                level[i]=level[cur]+1;
+                q.push(i);
+            }
+        }
+    }
+    return level[t]>0;
+}
+
+int dinic(int s,int t,int delta){
+    if(s==t) return delta;
+    int flow;
+    REP(i,1,n+1){
+        if(level[i]==level[s]+1&&mat[s][i]>0&&(flow=dinic(i,t,min(delta,mat[s][i])))){
+            mat[s][i]-=flow;
+            mat[i][s]+=flow;
+            return flow;
+        }
+    }
+    return 0;
+}
+
+int max_flow(int s,int t){
+    int res=0,tres=0;
+    while(bfs(s,t)){
+        while(tres=dinic(s,t,INF)) res+=tres;
+    }
+    return res;
+}
+
+int main(){
+    while(~scanf("%d%d",&m,&n)){
+        FILL(mat,0);
+        while(m--){
+            int u,v,c;
+            scanf("%d%d%d",&u,&v,&c);
+            mat[u][v]+=c;
+        }
+        int res=max_flow(1,n);
+        cout<<res<<endl;
+    }
+}
