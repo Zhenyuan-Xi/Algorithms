@@ -56,3 +56,4 @@ Dinic算法: 引入分层图的概念,对于每一个节点,根据从源点开�
 1. POJ  1273. Drainage Ditches: Dinic算法模板题
         2455. Secret Milking Machine:
         1149. Pigs:
+2. HDU  3549. Flow Problem: Dinic算法模板题
