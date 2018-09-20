@@ -100,7 +100,7 @@ int dinic(int s,int t,int delta){
         int u=edges[i].to,cap=edges[i].cap;
         if(level[u]==level[s]+1&&cap>0&&(flow=dinic(u,t,min(delta,cap)))){
             edges[i].cap-=flow;
-            edges[i+1].cap+=flow; //反向边增加delta
+            edges[i^1].cap+=flow; //反向边增加delta
             return flow;
         }
     }
