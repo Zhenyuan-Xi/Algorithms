@@ -10,3 +10,5 @@
 [Bipartite Graph 二分图](https://github.com/Zhenyuan-Xi/Algorithms/tree/master/Bipartite%20Graph)
 
 [Network Flows 网络流](https://github.com/Zhenyuan-Xi/Algorithms/tree/master/Network%20Flows)
+
+[Segment Tree 线段树](https://github.com/Zhenyuan-Xi/Algorithms/tree/master/Segment%20Tree)
