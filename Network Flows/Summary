@@ -54,6 +54,6 @@ Dinic算法: 引入分层图的概念,对于每一个节点,根据从源点开�
            时间复杂度为O(V^2E)
            
 1. POJ  1273. Drainage Ditches: Dinic算法模板题
-        2455. Secret Milking Machine:
+        2455. Secret Milking Machine: 二分查找,重新构图,注意使用当前弧优化避免
         1149. Pigs:
 2. HDU  3549. Flow Problem: Dinic算法模板题
