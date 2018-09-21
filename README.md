@@ -11,4 +11,6 @@
 
 [Network Flows 网络流](https://github.com/Zhenyuan-Xi/Algorithms/tree/master/Network%20Flows)
 
+[Binary Heap 二叉堆](https://github.com/Zhenyuan-Xi/Algorithms/tree/master/Binary%20Heap)
+
 [Segment Tree 线段树](https://github.com/Zhenyuan-Xi/Algorithms/tree/master/Segment%20Tree)
