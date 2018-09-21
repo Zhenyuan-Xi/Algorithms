@@ -60,15 +60,15 @@ public:
     
     int update(int i,int idx,int val){
         int diff;
-        if(segTree[i].l==segTree[i].r){
-            diff=val-segTree[i].sum;
+        if(segTree[i].l==segTree[i].r){ //叶节点为当前需要被替换的节点
+            diff=val-segTree[i].sum; //记录差值并向上传递
             segTree[i].sum=val;
             return diff;
         }
         int mid=(segTree[i].l+segTree[i].r)>>1;
         if(idx<=mid) diff=update(i<<1,idx,val);
         else diff=update((i<<1)|1,idx,val);
-        segTree[i].sum+=diff;
+        segTree[i].sum+=diff; //区间和更新差值
         return diff;
     }
     
