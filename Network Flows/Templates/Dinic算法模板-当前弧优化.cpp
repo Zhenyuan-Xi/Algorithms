@@ -31,6 +31,7 @@ struct edge{
 }edges[N<<1];
 int head[N],tot;
 int level[N];
+int cur[N]; //当前弧
 int n,m;
 
 void init(){
@@ -67,7 +68,8 @@ bool bfs(int s,int t){
 int dinic(int s,int t,int delta){
     if(s==t) return delta;
     int flow;
-    for(int i=head[s];~i;i=edges[i].next){
+    for(int i=cur[s];~i;i=edges[i].next){ //从当前弧开始遍历
+        cur[s]=i; //更新当前弧,避免重复计算已经满流的边
         int u=edges[i].to,cap=edges[i].cap;
         if(level[u]==level[s]+1&&cap>0&&(flow=dinic(u,t,min(delta,cap)))){
             edges[i].cap-=flow;
@@ -81,6 +83,7 @@ int dinic(int s,int t,int delta){
 int max_flow(int s,int t){
     int res=0,tres=0;
     while(bfs(s,t)){
+        REP(i,1,n+1) cur[i]=head[i]; //初始化当前弧,即拷贝头数组
         while(tres=dinic(s,t,INF)) res+=tres;
     }
     return res;
@@ -103,7 +106,7 @@ int main(){
 /*
 测试用例
 Input
-5 4
+4 5
 1 2 40
 1 4 20
 2 4 20
