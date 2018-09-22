@@ -46,7 +46,7 @@ class Solution {
 public:
     struct node{
         int l,r,cnt;
-    }segTree[75050*4];
+    }segTree[75050<<2];
     
     void build(int i,int l,int r){
         segTree[i].l=l;
@@ -77,22 +77,22 @@ public:
     
     int reversePairs(vector<int>& nums) {
         if(nums.size()<2) return 0;
-        set<ll> s;
+        set<ll> s; 
         for(int num:nums){
-            s.insert(num);
-            s.insert(num*2L+1);
+            s.insert(num); //储存当前值
+            s.insert(num*2L+1); //储存满足条件的可能值,即两倍的当前值
         }
         unordered_map<ll,int> mp;
         int i=0;
         for(ll num:s){
-            mp[num]=i++;
+            mp[num]=i++; //离散化储存下标
         }
-        build(1,0,s.size()-1);
+        build(1,0,s.size()-1); //以下标为区间构建线段树
         int res=0;
         for(int num:nums){
-            int idx=mp[num*2L+1];
-            res+=query(1,idx,s.size()-1);
-            update(1,mp[num]);
+            int idx=mp[num*2L+1]; //找到满足条件的最小值的下标,即两倍的当前值的下标
+            res+=query(1,idx,s.size()-1); //在该下标之后的区间查询出现的次数并累计
+            update(1,mp[num]); //更新当前值的下标的次数
         }
         return res;
     }
