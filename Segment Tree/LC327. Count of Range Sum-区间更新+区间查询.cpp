@@ -1,3 +1,13 @@
+/*
+Given an integer array nums, return the number of range sums that lie in [lower, upper] inclusive.
+Range sum S(i, j) is defined as the sum of the elements in nums between indices i and j (i ≤ j), inclusive.
+
+Example:
+Input: nums = [-2,5,-1], lower = -2, upper = 2,
+Output: 3 
+Explanation: The three ranges are : [0,0], [2,2], [0,2] and their respective sums are: -2, -1, 2.
+*/
+
 #include <bits/stdc++.h>
 /*
 #include<stdio.h>
@@ -57,10 +67,6 @@ public:
     }
     
     int query(int i,ll lower,ll upper){
-        if(segTree[i].l==segTree[i].r){
-            if(segTree[i].start>=lower&&segTree[i].end<=upper) return segTree[i].cnt;
-            if(segTree[i].start>upper||segTree[i].end<lower) return 0;
-        }
         if(segTree[i].start>=lower&&segTree[i].end<=upper) return segTree[i].cnt;
         if(segTree[i].start>upper||segTree[i].end<lower) return 0;
         return query(i<<1,lower,upper)+query((i<<1)|1,lower,upper);
@@ -74,8 +80,11 @@ public:
             sum+=(ll)nums[i];
             sums.insert(sum);
         }
-        for(ll val:sums) a.push_back(val);
+        for(ll val:sums) a.push_back(val); 
         sort(ALL(a));
+        //将区间统计转化为前缀统计,即interval(i,j)∈[lower,upper]相当于prefix[j]-prefix[i-1]∈[lower,upper]
+        //即prefix[j]∈[prefix[i-1]+lower,prefix[i-1]+upper]
+        //以前缀和为区间构建线段树,然后对每个prefix[j],先更新线段树中区间的统计个数,再查询有多少个prefix[i-1]满足条件
         build(1,0,a.size()-1);
         int res=0;
         RREP(i,nums.size()-1,0){
