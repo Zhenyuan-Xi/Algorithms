@@ -122,3 +122,85 @@ int main(){
         }
     }
 }
+
+
+//不使用结构node,即直接用数组下标代替区间左右边界
+#include <bits/stdc++.h>
+/*
+#include<stdio.h>
+#include<iostream>
+#include<algorithm>
+#include<map>
+#include<set>
+#include<queue>
+#include<vector>
+#include<string.h>
+*/
+using namespace std;
+typedef long long ll;
+typedef vector<int> VI;
+typedef vector<vector<int> > VII;
+typedef vector<char> VC;
+typedef vector<string> VS;
+typedef pair<int,int> PII;
+#define REP(i,s,t) for(int i=(s);i<(t);++i)
+#define RREP(i,s,t) for(int i=(s);i>=(t);--i)
+#define ALL(x) (x).begin(),(x).end()
+#define FILL(x,v) memset(x,v,sizeof(x))
+#define LEN(x) sizeof(x)/sizeof(x[0])
+#define MP(x,y) make_pair(x,y)
+const int INF=0x3f3f3f3f;
+const int dx[]={-1,0,1,0},dy[]={0,-1,0,1}; //i=3-i
+/*----------------------------------------------*/
+const int N=50010;
+int segTree[N<<2];
+char str[10];
+int n;
+
+void build(int i,int l,int r){
+    if(l==r){
+        scanf("%d",&segTree[i]);
+        return;
+    }
+    int mid=(l+r)>>1;
+    build(i<<1,l,mid);
+    build((i<<1)|1,mid+1,r);
+    segTree[i]=segTree[i<<1]+segTree[(i<<1)|1];
+}
+
+void update(int i,int l,int r,int idx,int val){
+    if(l==r){
+        segTree[i]+=val;
+        return;
+    }
+    int mid=(l+r)>>1;
+    if(idx<=mid) update(i<<1,l,mid,idx,val);
+    else update((i<<1)|1,mid+1,r,idx,val);
+    segTree[i]=segTree[i<<1]+segTree[(i<<1)|1];
+}
+
+int query(int i,int L,int R,int l,int r){
+    if(L==l&&R==r) return segTree[i];
+    int res=0;
+    int mid=(L+R)>>1;
+    if(l>mid) res=query((i<<1)|1,mid+1,R,l,r);
+    else if(r<=mid) res=query(i<<1,L,mid,l,r);
+    else res=query(i<<1,L,mid,l,mid)+query((i<<1)|1,mid+1,R,mid+1,r);
+    return res;
+}
+
+int main(){
+    int t,x,y;cin>>t;
+    REP(i,1,t+1){
+        scanf("%d",&n);
+        build(1,1,n);
+        printf("Case %d:\n",i);
+        while(scanf("%s",&str)){
+            if(strcmp(str,"End")==0) break;
+            scanf("%d%d",&x,&y);
+            if(strcmp(str,"Add")==0) update(1,1,n,x,y);
+            else if(strcmp(str,"Sub")==0) update(1,1,n,x,-y);
+            else printf("%d\n",query(1,1,n,x,y));
+        }
+    }
+}
