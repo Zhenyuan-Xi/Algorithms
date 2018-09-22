@@ -40,7 +40,6 @@ Case 1:
 59
 */
 
-//zkw线段树,一脸懵逼
 #include <bits/stdc++.h>
 /*
 #include<stdio.h>
