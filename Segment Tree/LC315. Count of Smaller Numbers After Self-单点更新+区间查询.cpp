@@ -64,12 +64,12 @@ public:
         VI sorted=nums;
         sort(ALL(sorted));
         unordered_map<int,int> mp;
-        REP(i,0,sorted.size()) mp[sorted[i]]=i+1;
+        REP(i,0,sorted.size()) mp[sorted[i]]=i+1; //排序后记录index
         build(1,0,sorted.size());
-        RREP(i,nums.size()-1,0){
-            int id=mp[nums[i]];
-            nums[i]=query(1,0,id-1);
-            update(1,id);
+        RREP(i,nums.size()-1,0){ //从右往左遍历
+            int id=mp[nums[i]]; //在排序数组里的index
+            nums[i]=query(1,0,id-1); //在(0,id)内区间查询
+            update(1,id); //单点更新,将该点以及孩子区间都更新,即(0,2):0->1,(1,2):0->1
         }
         return nums;
     }
