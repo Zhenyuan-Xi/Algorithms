@@ -1,5 +1,5 @@
 # Algorithms
-`Day:19` 更新至线段树
+`Day:20` 更新至线段树
 
 [Topological Sorting 拓扑排序](https://github.com/Zhenyuan-Xi/Algorithm/tree/master/Topological%20Sorting)
 
