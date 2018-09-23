@@ -26,3 +26,11 @@
              在左树中查询
          else
              区间横跨左右子树,累加左右子树区间查询的结果
+
+1. LeetCode  307. Range Sum Query: 单点替换,区间求和
+             315. Count of Smaller Number After Self: 单点更新,区间查询
+             327. Count of Range Sum: 区间更新,区间查询,暂且未理解
+             493. Reverse Pairs: 重新构建区间,单点更新,区间查询
+2. HDU  1166. 敌兵布阵: 单点更新,区间求和
+        1754. I Hate It: 单点替换,区间求最值
+        3974. Assign the Task: 区间更新,单点查询,使用lazy标记
