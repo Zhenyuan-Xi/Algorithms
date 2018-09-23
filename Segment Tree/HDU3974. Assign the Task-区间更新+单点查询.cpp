@@ -72,10 +72,10 @@ const int dx[]={-1,0,1,0},dy[]={0,-1,0,1}; //i=3-i
 const int N=50050;
 struct edge{
     int to,next;
-}edges[N];
+}edges[N]; //保存有向图里的边
 int head[N],tot;
-int vis[N];
-int s[N],e[N];
+int vis[N]; //标记子节点,即寻找头节点
+int s[N],e[N]; //保存每个节点在线段树中对应的区间index范围
 int cnt;
 
 void init(){
@@ -89,7 +89,7 @@ void addEdge(int u,int v){
     head[u]=tot++;
 }
 
-void dfs(int u){
+void dfs(int u){ //用DFS序找出每个节点与其所有孩子节点对应的区间范围,即将该节点和其孩子节点压缩进一个区间
     ++cnt;
     s[u]=cnt;
     for(int i=head[u];~i;i=edges[i].next){
@@ -101,9 +101,9 @@ void dfs(int u){
 
 struct node{
     int l,r,task,lazy;
-}segTree[N<<2];
+}segTree[N<<2]; //区间更新需要使用lazy标记提高效率,避免在每次更新时都遍历所有子区间
 
-void push_down(int i){
+void push_down(int i){ //向子区间传递更新值以及lazy标记
     if(segTree[i].l!=segTree[i].r&&segTree[i].lazy){
         segTree[i<<1].task=segTree[i].task;
         segTree[i<<1].lazy=1;
@@ -130,7 +130,7 @@ void update(int i,int l,int r,int y){
         segTree[i].lazy=1;
         return;
     }
-    push_down(i);
+    push_down(i); //向下传递
     int mid=(segTree[i].l+segTree[i].r)>>1;
     if(r<=mid) update(i<<1,l,r,y);
     else if(l>mid) update((i<<1)|1,l,r,y);
@@ -142,7 +142,7 @@ void update(int i,int l,int r,int y){
 
 int query(int i,int x){
     if(segTree[i].l==x&&segTree[i].r==x) return segTree[i].task;
-    push_down(i);
+    push_down(i); //向下传递
     int mid=(segTree[i].l+segTree[i].r)>>1;
     if(x<=mid) return query(i<<1,x);
     else return query((i<<1)|1,x);
@@ -160,15 +160,15 @@ int main(){
         REP(j,1,n){
             scanf("%d%d",&u,&v);
             vis[u]=1;
-            addEdge(v,u);
+            addEdge(v,u); //添加有向边
         }
         REP(j,1,n+1){
             if(!vis[j]){
-                dfs(j);
+                dfs(j); //DFS序将节点与子树压缩进一个区间
                 break;
             }
         }
-        build(1,1,cnt);
+        build(1,1,cnt); //建树,cnt即为总区间右边界
         char op[10];
         scanf("%d",&m);
         while(m--){
@@ -176,10 +176,10 @@ int main(){
             scanf("%s",op);
             if(op[0]=='C'){
                 scanf("%d",&x);
-                printf("%d\n",query(1,s[x]));
+                printf("%d\n",query(1,s[x])); //单点查询
             }else{
                 scanf("%d%d",&x,&y);
-                update(1,s[x],e[x],y);
+                update(1,s[x],e[x],y); //区间更新
             }
         }
     }
