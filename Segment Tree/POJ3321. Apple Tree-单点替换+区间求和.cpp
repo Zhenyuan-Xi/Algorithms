@@ -80,12 +80,12 @@ void addEdge(int u,int v){
     head[u]=tot++;
 }
 
-void dfs(int u,int prev){
+void dfs(int u){
     ++cnt;
     s[u]=cnt;
     for(int i=head[u];~i;i=edges[i].next){
         int v=edges[i].to;
-        if(v!=prev) dfs(v,u);
+        dfs(v);
     }
     e[u]=cnt;
 }
@@ -135,9 +135,8 @@ int main(){
             int u,v;
             scanf("%d%d",&u,&v);
             addEdge(u,v);
-            addEdge(v,u);
         }
-        dfs(1,0);
+        dfs(1); //DFS序求区间起点终点时间戳
         build(1,1,n);
         scanf("%d",&m);
         while(m--){
