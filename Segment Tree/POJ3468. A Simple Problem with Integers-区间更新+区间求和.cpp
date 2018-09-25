@@ -1,0 +1,28 @@
+/*
+You have N integers, A1, A2, ... , AN. You need to deal with two kinds of operations. 
+One type of operation is to add some given number to each number in a given interval. 
+The other is to ask for the sum of numbers in a given interval.
+
+Input
+The first line contains two numbers N and Q. 1 ≤ N,Q ≤ 100000.
+The second line contains N numbers, the initial values of A1, A2, ... , AN. -1000000000 ≤ Ai ≤ 1000000000.
+Each of the next Q lines represents an operation.
+"C a b c" means adding c to each of Aa, Aa+1, ... , Ab. -10000 ≤ c ≤ 10000.
+"Q a b" means querying the sum of Aa, Aa+1, ... , Ab.
+Output
+You need to answer all Q commands in order. One answer in a line.
+
+Input
+10 5
+1 2 3 4 5 6 7 8 9 10
+Q 4 4
+Q 1 10
+Q 2 4
+C 3 6 3
+Q 2 4
+Output
+4
+55
+9
+15
+*/
