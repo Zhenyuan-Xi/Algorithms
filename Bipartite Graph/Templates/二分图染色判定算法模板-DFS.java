@@ -15,7 +15,7 @@ class Solution{
         }
         int[] colors=new int[n];
         Arrays.fill(colors,-1);
-        bool ok=true;
+        boolean ok=true;
         for(int i=0;i<n;i++){
             if(colors[i]==-1) dfs(res,adj,colors,i,0,ok);
         }
