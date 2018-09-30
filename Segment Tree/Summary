@@ -36,6 +36,7 @@
         1754. I Hate It: 单点替换,区间求最值
         3974. Assign the Task: DFS序求时间戳构建线段树,区间更新,单点查询,使用lazy标记
         1542. Atlantis: 矩形面积并
+        1255. 覆盖的面积: 矩形面积交
 3. POJ  3264. Balanced Lineup: 区间最值查询
         3468. A Simple Problem with Integers: 区间更新,区间求和,使用lazy标记
         3321. Apple Tree: DFS序求时间戳构建线段树,单点替换,区间求和
