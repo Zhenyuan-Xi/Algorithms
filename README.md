@@ -13,3 +13,5 @@
 [Binary Heap 二叉堆](https://github.com/Zhenyuan-Xi/Algorithms/tree/master/Binary%20Heap)
 
 [Segment Tree 线段树](https://github.com/Zhenyuan-Xi/Algorithms/tree/master/Segment%20Tree)
+
+[Binary Index Tree 树状数组](https://github.com/Zhenyuan-Xi/Algorithms/tree/master/Binary%20Index%20Tree)
