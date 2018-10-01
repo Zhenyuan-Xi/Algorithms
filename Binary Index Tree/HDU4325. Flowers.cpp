@@ -121,13 +121,13 @@ int main(){
             if(a[i]!=a[i-1]) a[tot++]=a[i]; //去重
         }
         REP(i,0,n){
-            int l=Bin(s[i],tot)+1; //用二分搜索在离散化数组中找到左边界
-            int r=Bin(t[i],tot)+1; //用二分搜索在离散化数组中找到右边界
+            int l=Bin(s[i],tot)+1; //用二分查找在离散化数组中找到左边界
+            int r=Bin(t[i],tot)+1; //用二分查找在离散化数组中找到右边界
             update(l,1); //区间[l...]增加1
             update(r+1,-1); //区间[r+1...]减去1,即区间[l...r]增加1
         }
         REP(i,0,m){
-            int qu=Bin(q[i],tot)+1; //用二分搜索在离散化数组中找到query点
+            int qu=Bin(q[i],tot)+1; //用二分在离散化数组中找到query点
             printf("%lld\n",query(qu));
         }
     }
