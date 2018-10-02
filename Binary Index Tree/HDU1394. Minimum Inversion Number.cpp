@@ -85,7 +85,7 @@ int main(){
         }
         int res=sum;
         REP(i,1,n+1){
-            sum+=n-a[i]-(a[i]-1); //将a[i]从首位移动到末位时,
+            sum+=n-a[i]-(a[i]-1); //将a[i]从首位移动到末位时,减少了a[i]-1个逆序对,增加了n-a[i]个逆序对
             res=min(res,sum);
         }
         printf("%d\n",res);
