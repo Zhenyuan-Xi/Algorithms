@@ -15,3 +15,5 @@
 [Segment Tree 线段树](https://github.com/Zhenyuan-Xi/Algorithms/tree/master/Segment%20Tree)
 
 [Binary Index Tree 树状数组](https://github.com/Zhenyuan-Xi/Algorithms/tree/master/Binary%20Index%20Tree)
+
+[Knapsack Problem 背包问题](https://github.com/Zhenyuan-Xi/Algorithms/tree/master/Dynamic%20Programming/Knapsack%20Problem)
