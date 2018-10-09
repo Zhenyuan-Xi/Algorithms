@@ -15,3 +15,46 @@ Input: [1, 2, 3, 5]
 Output: false
 Explanation: The array cannot be partitioned into equal sum subsets.
 */
+
+class Solution {
+    public boolean canPartition(int[] nums) {
+        int n = nums.length;
+        int sum = 0;
+        for (int num : nums) sum += num;
+        if (sum % 2 == 1) return false;
+        sum /= 2;
+      // F(i, j): 前i个元素能否通过某些元素加和得到j
+      // F(i, j) = F(i-1,j) or F(i-1,j-nums[i])
+        boolean[][] dp = new boolean[n + 1][sum + 1];
+        dp[0][0] = true;
+        for (int i = 1; i <= n; i++) dp[i][0] = true;
+        for (int j = 1; j <= sum; j++) dp[0][j] = false;
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= sum; j++) {
+                if (j >= nums[i - 1]) 
+                    dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i - 1]];
+            }
+        }
+        return dp[n][sum];
+    }
+}
+
+// 空间优化
+class Solution {
+    public boolean canPartition(int[] nums) {
+        int n = nums.length;
+        int sum = 0;
+        for (int num : nums) sum += num;
+        if (sum % 2 == 1) return false;
+        sum /= 2;
+        boolean[] dp = new boolean[sum + 1];
+        dp[0] = true;
+        for (int i = 0; i < n; i++) {
+            for (int j = sum; j >= 1; j--) { // 倒序循环
+                if (j >= nums[i])
+                    dp[j] = dp[j] || dp[j - nums[i]];
+            }
+        }
+        return dp[sum];
+    }
+}
