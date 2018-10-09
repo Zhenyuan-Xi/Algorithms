@@ -16,3 +16,24 @@ Input: Array = {"10", "0", "1"}, m = 1, n = 1
 Output: 2
 Explanation: You could form "10", but then you'd have nothing left. Better form "0" and "1".
 */
+
+class Solution {
+    public int findMaxForm(String[] strs, int m, int n) {
+        int[][] dp = new int[m + 1][n + 1];
+        for (String s : strs) {
+            int zeroes = 0, ones = 0;
+            for (char c : s.toCharArray()) {
+                if (c == '1') ones++;
+                else zeroes++;
+            }
+          // F(i, j): 由i个0和j个1能得到的最多的字符串的数量
+          // F(i, j) = max{F(i, j), F(i-zeroes, j-ones)+1}
+            for (int i = m; i >= zeroes; i--) {
+                for (int j = n; j >= ones; j--) {
+                    dp[i][j] = Math.max(dp[i][j], dp[i - zeroes][j - ones] + 1);
+                }
+            }
+        }
+        return dp[m][n];
+    }
+}
